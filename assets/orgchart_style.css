@@ -1,0 +1,13 @@
+#chart-container {
+  position: relative;
+  display: inline-block;
+  top: 10px;
+  left: 10px;
+  height: 450px;
+  width: calc(100% - 50px);
+  border: 2px dashed #aaa;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  overflow: auto;
+  text-align: center;
+}
