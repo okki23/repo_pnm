@@ -3,9 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  
 class Login extends Parent_Controller {
  
-  	var $nama_tabel = 'm_user';
-  	var $daftar_field = array('id','id_user','username','password','user_insert','date_insert','user_update','date_update');
-  	var $primary_key = 'id';
+  	var $nama_tabel_mhs = 'mahasiswa';
+  	var $daftar_field_mhs = array('id','nim','nama','jenkel','telp','alamat','email','password');
+  	var $primary_key_mhs = 'id';
+
+	var $nama_tabel_dsn = 'dosen';
+  	var $daftar_field_dsn = array('id','nidn','nama','jenkel','telp','alamat','email','password');
+  	var $primary_key_dsn = 'id';
 
  	public function __construct(){
  		parent::__construct();

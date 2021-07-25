@@ -51,17 +51,19 @@ class Backend_jurnal extends Parent_Controller {
 	// 	]
 	//   }';
 	$var = '{
-  "data": [
-    {
-      "id": "1",
-      "names": "Tiger Nixon",
-      "position": "System Architect", 
-      "start_date": "2011/04/25",
-      "office": "Edinburgh",
-      "extn": "5421"
-    }
-  ]
-}';
+			"data": [
+				{
+				"id": "1",
+				"judul": "Tiger Nixon",
+				"jenis": "System Architect", 
+				"rumah_jurnal": "2011/04/25",
+				"diterbitkan": "Edinburgh",
+				"doi": "5421"
+				"nomor_induk":
+				"penulis"
+				}
+			]
+			}';
        echo $var;
 	}
   

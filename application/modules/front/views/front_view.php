@@ -6,33 +6,21 @@
     <meta name="description" content="">
     <meta name="author" content="webthemez">
     <title>Repository Politeknik Negeri Manado</title>
-	<!-- core CSS -->
-    <link href="<?php echo base_url('assets/frontend/');?>css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo base_url('assets/frontend/');?>css/font-awesome.min.css" rel="stylesheet">
-    <link href="<?php echo base_url('assets/frontend/');?>css/animate.min.css" rel="stylesheet"> 
-    <link href="<?php echo base_url('assets/frontend/');?>css/prettyPhoto.css" rel="stylesheet">
-    <link href="<?php echo base_url('assets/frontend/');?>css/styles.css" rel="stylesheet"> 
-	
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/frontend/');?>css/slider-style.css" />
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/frontend/');?>css/slider-custom.css" />
-		<script type="text/javascript" src="<?php echo base_url('assets/frontend/');?>js/modernizr.custom.79639.js"></script>
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
     <link rel="shortcut icon" href="<?php echo base_url('assets/images/');?>logopnm.png"> 
+	 
+    <link href="<?php echo base_url('assets/frontend/');?>css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets/frontend/');?>css/font-awesome.min.css" rel="stylesheet"> 
+    <link href="<?php echo base_url('assets/frontend/');?>css/styles.css" rel="stylesheet"> 
+    <link href="<?php echo base_url('assets/frontend/');?>css/tambahan.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets/frontend/');?>sweetalert/sweetalert2.min.css" rel="stylesheet">  
+
     <script src="<?php echo base_url('assets/frontend/');?>js/jquery.js"></script>
-    <script src="<?php echo base_url('assets/frontend/');?>js/bootstrap.min.js"></script> 
-    <script src="<?php echo base_url('assets/frontend/');?>js/mousescroll.js"></script>
-    <script src="<?php echo base_url('assets/frontend/');?>js/smoothscroll.js"></script>
-    <script src="<?php echo base_url('assets/frontend/');?>js/jquery.prettyPhoto.js"></script>
-    <script src="<?php echo base_url('assets/frontend/');?>js/jquery.isotope.min.js"></script>
-    <script src="<?php echo base_url('assets/frontend/');?>js/jquery.inview.min.js"></script>
-    <script src="<?php echo base_url('assets/frontend/');?>js/wow.min.js"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/frontend/');?>js/jquery.ba-cond.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/frontend/');?>js/jquery.slitslider.js"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/frontend/');?>js/slitslider-custom.js"></script>
+    <script src="<?php echo base_url('assets/frontend/');?>js/jquery.session.js"></script>
+    <script src="<?php echo base_url('assets/frontend/');?>js/bootstrap.min.js"></script>  
+    <script src="<?php echo base_url('assets/frontend/');?>js/smoothscroll.js"></script>  
     <script src="<?php echo base_url('assets/frontend/');?>js/custom-scripts.js"></script>
+    <script src="<?php echo base_url('assets/frontend/');?>sweetalert/sweetalert2.min.js"></script> 
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 </head> 
@@ -48,7 +36,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><img src="<?php echo base_url('assets/images/');?>logopnm.png" style="width:10%;" alt="logo"></a>
+                    <a class="navbar-brand" href="<?php echo base_url(); ?>"><img src="<?php echo base_url('assets/images/');?>logopnm.png" style="width:10%;" alt="logo"></a>
                 </div>
 				
                 <div class="collapse navbar-collapse navbar-right">
@@ -57,8 +45,13 @@
                         <li class="scroll"><a href="#services">Fitur</a></li>
                         <li class="scroll"><a href="#about">Repository</a></li> 
                         <li class="scroll"><a href="#contact-us">Kontak</a></li>
-                        <li><a href="javascript::void(0);" onclick="Ohyes();" class="btn btn-lg btn-info"> LOGIN </a> </li> 
+                        <!-- <li><a href="javascript:void(0);" onclick="Ohyes();" class="btn btn-lg btn-info"> LOGIN </a> </li>  -->
                     </ul>
+                    
+                    <a href="javascript:void(0);" id="linklogin" style="margin-top:30px; font-weight:bold;" onclick="BukaModalForm();" class="btn btn-lg btn-sm btn-info"> <i class="fa fa-user-o" aria-hidden="true"></i> LOGIN </a>
+                    
+                    <a href="javascript:void(0);" id="linklogout" style="margin-top:30px; font-weight:bold;" onclick="Logout();" class="btn btn-lg btn-sm btn-info"> <i class="fa fa-user-o" aria-hidden="true"></i> LOGOUT </a>
+            
                 </div>
             </div><!--/.container-->
         </nav><!--/nav-->
@@ -66,19 +59,111 @@
  
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Login</h4>
+            <h4 class="modal-title" id="myModalLabel"> &nbsp; </h4>
         </div>
         <div class="modal-body">
-             
+        <div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-4">
+								<a href="#" class="active" id="login-form-link">Login</a>
+							</div>
+							<div class="col-xs-4">
+								<a href="#" id="register-form-link">Daftar</a>
+							</div>
+                            <div class="col-xs-4">
+								<a href="#" id="forgot-form-link">Lupa Password</a>
+							</div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<form id="login-form"  method="post" role="form" style="display: block;">
+									<div class="form-group">
+										<input type="text" name="nomor_induk" id="nomor_induk" tabindex="1" class="form-control" placeholder="Nomor Induk" value="">
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+									</div> 
+                                    <div class="form-group">
+										<select name="roles_login" id="roles_login"  class="form-control" >
+                                            <option value="">--Roles--</option>
+                                            <option value="1">Dosen</option>
+                                            <option value="2">Mahasiswa</option>
+                                        </select> 
+									</div> 
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="button" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Masuk">
+											</div>
+										</div>
+									</div>
+									 
+								</form>
+								<form id="register-form" method="post" role="form" style="display: none;">
+									<div class="form-group">
+										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+									</div>
+									<div class="form-group">
+										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+									</div>
+									<div class="form-group">
+										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+									</div>
+                                    <select name="roles" id="roles"  class="form-control" >
+                                            <option value="">--Roles--</option>
+                                            <option value="1">Dosen</option>
+                                            <option value="2">Mahasiswa</option>
+                                        </select> 
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="button" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+											</div>
+										</div>
+									</div>
+								</form>
+                                <form id="forgot-pass" method="post" role="form" style="display: none;">
+									<div class="form-group">
+										<input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
+									</div>
+								 
+                                    <div class="form-group">
+										<select name="roles" id="roles"  class="form-control" >
+                                            <option value="">--Roles--</option>
+                                            <option value="1">Dosen</option>
+                                            <option value="2">Mahasiswa</option>
+                                        </select> 
+									</div> 
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="button" name="por-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Masuk">
+											</div>
+										</div>
+									</div>
+									 
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+       
         </div>
     </div>
     </div>
@@ -88,6 +173,7 @@
             <div class="section-header" style="margin-top:100px;">
                  
             <h2 class="section-title wow fadeInDown">Repository Politeknik Negeri Manado</h2>
+            <div id="sessions"> </div>
                 <p class="wow fadeInDown" style="text-align:justify;">Sebagai tempat menimba ilmu pengetahuan. Universitas Gunadarma menyediakan Perpustakaan yang dilengkapi dengan beragam bahan pustaka yang terdiri dari buku literatur baik dalam bahasa Indonesia maupun dalam bahasa Inggris, majalah, jurnal ilmiah serta buku ilmu pengetahuan lainnya. Fasilitas Perpustakaan Universitas Gunadarma telah digunakan oleh mahasiswa, dosen, karyawan dan alumni Universitas Gunadarma. Sesuai dengan kemajuan teknologi komunikasi telah dikembangkan perpustakaan audio visual di Universitas Gunadarma. Perpustakaan ini dilengkapi dengan peralatan video dan TV , juga perangkat komputer untuk keperluan belajar mandiri.Koleksi perpustakaan bersifat satu arah dan dua arah (multi media interaktif) Apabila seorang mahasiswa kesulitan dalam salah satu mata kuliah, mahasiswa dapat mengunjungi perpustakaan audio visual kemudian mencari koleksi yang diinginkan, kemudiana belajar secara mandiri. Dengan perpustakaan audio visual diharapkan keterbatasan ruang dan waktu dapat dihilangkan. seorang mahasiswa sastra Inggris, dapat mempelajari bagaimana kebudayaan inggris dan karya sastra klasik inggris melalui video, atau melalui audio. Untuk memenuhi koleksi video dan multi media interaktif, perpustakaan audio visual dilengkapi dengan studio produksi. distudio ini diproduksi video dan multi media interaktif. Direncanakan akan di produksi video/vcd dan multimedia interaktif untuk semua mata kuliah yang diberikan di universitas gunadarma. Para mahasiswa, dosen dan karyawan serta pihak lain yang berkepentingan dapat memanfaatkan fasilitas tersebut guna mendukung pelaksanaan kegiatan belajar mengajar. Tujuan Menunjang Tridarma Perguruan Tinggi dengan fungsinya sebagai sumber informasi bagi pelaksanaan proses belajar dan mengajar, penelitian dan pengabdian pada masyarakat. Sejarah 1987 Berdiri Perpustakaan STKG di kampus Depok 1992 Berdiri Perpustakaan STIE di kampus Kelapa Dua 1996 Bertambah 4 buah Perpustakaan fakultas yaitu: Perpustakaan fakultas Teknik Perencanaan, Teknik Industri, Psikologi dan Sastra 2000 Secara keseluruhan disebut sebagai Perpustakaan Universitas Lokasi Operasional Kampus D Jalan Margonda Raya No. 100 Depok Telepon : 78881112 - ext. 301 Gedung III Lt. 1 Perpustakaan Fakultas Ilmu Komputer, Fakultas Teknologi Industri, dan Fakultas Teknik Perencanaan dan Sipil Kampus E Jalan Akses UI Kelapa Dua Telepon : 8727541 - ext. 501 Gedung V Lt. 1 Perpustakaan Fakultas Ekonomi, Fakultas Psikologi dan Fakultas Sastra dan Bahasa Perpustakaan Audio Visual Kampus J Jl. KH. Noer Ali, Kalimalang, Bekasi Telepon : 021-88860117 ext 117 Lt. 3 Perpustakaan Fakultas Ilmu Komputer, Fakultas Teknologi Industri, Fakultas Teknik Perencanaan dan Sipil,Fakultas Ekonomi, Fakultas Psikologi dan Fakultas Sastra  .</p>
             </div>
   
@@ -148,8 +234,16 @@
  <section id="about">
      
     <div class="container"> 
+        
         <div class="section-header" style="margin-top:100px;"> 
             <h2 class="section-title wow fadeInDown">Repository Politeknik Negeri Manado</h2>
+            <div align="center">
+                <button class='btn btn-primary'> Jurnal </button> 
+                <button class='btn btn-primary'> Karya Ilmiah </button>
+                <button class='btn btn-primary'> Skripsi </button>
+                <br>
+                &nbsp;
+            </div>
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
@@ -235,10 +329,47 @@
     
 
     <script> 
-     
-    function Ohyes(){
+    $(document).ready(function(){ 
+        if(localStorage.getItem("nama") == '' || !(localStorage.getItem("nama"))){
+            $("#linklogin").show();
+            $("#linklogout").hide();
+            $("#sessions").html("Harap Login Terlebih Dahulu");
+        }else{
+            $("#linklogin").hide();
+            $("#linklogout").show();
+            $("#sessions").html(localStorage.getItem("nama"));
+        }
+    });
+    function BukaModalForm(){
         $("#myModal").modal({backdrop: 'static', keyboard: false,show:true});
     }
+
+    function Logout(){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Anda Telah Logout!'
+            }).then(function() { 
+                $("#linklogin").show();
+                $("#linklogout").hide();
+                localStorage.removeItem('nama');
+                localStorage.removeItem('nomor_induk');
+                $("#sessions").html("Harap Login Terlebih Dahulu");
+            }); 
+    }
+
+
     /* Formatting function for row details - modify as you need */
     function format ( d ) {
         // `d` is the original data object for the row
@@ -292,15 +423,84 @@
             }
         } );
     } );
-    </script>
-    <style>
-        td.details-control {
-            background: url('assets/images/details_open.png') no-repeat center center;
-            cursor: pointer;
-        }
-        tr.shown td.details-control {
-            background: url('assets/images/details_close.png') no-repeat center center;
-        }
-    </style>
+    $('#login-form-link').click(function(e) {
+    $("#login-form").delay(100).fadeIn(100); 
+    $("#register-form").fadeOut(100);
+    $("#forgot-pass").fadeOut(100);
+    $('#register-form-link').removeClass('active');
+    $('#forgot-form-link').removeClass('active');  
+    $(this).addClass('active');
+    e.preventDefault();
+    });
+    
+    $('#register-form-link').click(function(e) {
+    $("#register-form").delay(100).fadeIn(100);
+    $("#login-form").fadeOut(100);
+    $("#forgot-pass").fadeOut(100);
+    $('#login-form-link').removeClass('active');
+    $('#forgot-form-link').removeClass('active');
+    $(this).addClass('active');
+    e.preventDefault();
+    });
+    
+    $('#forgot-form-link').click(function(e) {
+    $("#forgot-pass").delay(100).fadeIn(100);
+    $("#login-form").fadeOut(100);
+    $("#register-form").fadeOut(100);
+    $('#login-form-link').removeClass('active');
+    $('#register-form-link').removeClass('active');
+    $(this).addClass('active');
+    e.preventDefault();
+});
+
+
+$("#login-submit").on("click",function(){
+    const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+    }); 
+  
+    var nomor_induk = $("#nomor_induk").val();
+    var password = $("#password").val();
+    var roles_login = $("#roles_login").val(); 
+    
+    $.ajax({
+       url:"<?php echo base_url('login_front/auth'); ?>",
+       data:{nomor_induk:nomor_induk,password:password,roles_login:roles_login},
+       type:"POST",
+       success:function(result){
+            $("#myModal").modal('hide');
+            $('form#login_form').trigger("reset");
+            var obj = JSON.parse(result);  
+            Toast.fire({
+            icon: 'success',
+            title: 'Login Sukses!'
+            }).then(function() { 
+                localStorage.setItem('nama',obj.data.nama);
+                localStorage.setItem('nomor_induk',obj.data.nomor_induk); 
+                $("#linklogin").hide();
+                $("#linklogout").show();
+                $("#sessions").html(localStorage.getItem("nama"));               
+            }); 
+       }
+   });
+});
+
+$("#register-submit").on("click",function(){
+    alert('ente register');
+});
+
+$("#forgot-submit").on("click",function(){
+    alert('ente forgot');
+});
+    
+    </script> 
 </body>
 </html>
