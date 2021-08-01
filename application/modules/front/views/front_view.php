@@ -225,41 +225,45 @@
 										<input type="text" name="penerbit_jurnal" id="penerbit_jurnal" tabindex="1" class="form-control" placeholder="Penerbit">
 									</div>    
                                     <div class="form-group">
+                                        <div class="alert alert-danger" role="alert">Hanya File PDF Yang Diizinkan!!!</div>
 										<input type="file" name="file_jurnal" id="file_jurnal" tabindex="1" class="form-control" >
                                     </div>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-                                                <button  id="jurnal-submit" type="button" class="form-control btn btn-login"> Simpan </button>
+                                                <button id="jurnal-submit" type="button" class="form-control btn btn-login"> Simpan </button>
 											</div>
 										</div>
 									</div> 
 								</form>
 
-								<form id="ilmiah-form" method="post" role="form" style="display: none;">
-									<div class="form-group">
+								<form id="ilmiah-form" style="display: none;" enctype="multipart/form-data">
+									<input type="hidden" name="nomor_induk_ilmiah" id="nomor_induk_ilmiah" tabindex="2" class="form-control" readonly="readonly">
+                                    <div class="form-group">
 										<input type="text" name="judul_ilmiah" id="judul_ilmiah" tabindex="1" class="form-control" placeholder="Judul Ilmiah">
 									</div>
 									<div class="form-group">
-										<input type="text" name="nama_penulis_ilmiah" id="nama_penulis" tabindex="1" class="form-control" placeholder="Nama Penulis">
-									</div>
+										<input type="text" name="nama_penulis_ilmiah" id="nama_penulis_ilmiah" tabindex="1" class="form-control" placeholder="Nama Penulis">
+									</div> 
+                                    <div class="form-group">
+										<input type="text" name="tanggal_disahkan_ilmiah" id="tanggal_disahkan_ilmiah" tabindex="1" class="form-control" placeholder="Tanggal Disahkan">
+									</div> 
 									<div class="form-group">
-										<input type="text" name="tanggal_disahkan_ilmiah" id="tanggal_disahkan" tabindex="2" class="form-control" placeholder="Tanggal Disahkan">
-									</div>
-									<div class="form-group">
+                                    <div class="alert alert-danger" role="alert">Hanya File PDF Yang Diizinkan!!!</div>
 										<input type="file" name="file_ilmiah" id="file_ilmiah" tabindex="2" class="form-control">
 									</div>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-                                            <button  id="ilmiah-submit" type="button" class="form-control btn btn-login"> Simpan </button>
+                                            <button id="ilmiah-submit" type="button" class="form-control btn btn-login"> Simpan </button>
 											</div>
 										</div>
 									</div> 
 								</form>
 
-                                <form id="skripsi-form" method="post" role="form" style="display: none;">
-									<div class="form-group">
+                                <form id="skripsi-form"  enctype="multipart/form-data" style="display: none;">
+                                    <input type="hidden" name="nomor_induk_skripsi" id="nomor_induk_skripsi" tabindex="2" class="form-control" readonly="readonly">
+                                    <div class="form-group">
 										<input type="text" name="judul_skripsi" id="judul_skripsi" tabindex="1" class="form-control" placeholder="Judul Skripsi">
 									</div>
 									<div class="form-group">
@@ -273,20 +277,14 @@
 									</div>
                                     <div class="form-group">
 										<input type="text" name="tanggal_sidang_skripsi" id="tanggal_sidang_skripsi" tabindex="2" class="form-control" placeholder="Tanggal Sidang">
-									</div>
-                                    <div class="form-group">
-										<input type="text" name="tempat_terbit_skripsi" id="tempat_terbit_skripsi" tabindex="2" class="form-control" placeholder="Tempat Terbit">
-									</div>
-                                    <div class="form-group">
-										<input type="text" name="tanggal_terbit_skripsi" id="tanggal_terbit_skripsi" tabindex="2" class="form-control" placeholder="Tanggal Terbit">
-									</div>
+									</div> 
 									<div class="form-group">
 										<input type="file" name="file_skripsi" id="file_skripsi" tabindex="2" class="form-control">
 									</div>
 									<div class="form-group">
 										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-                                            <button  id="ilmiah-submit" type="button" class="form-control btn btn-login"> Simpan </button>
+											<div clas                                                                                                                                                               s="col-sm-6 col-sm-offset-3">
+                                            <button  id="skripsi-submit" type="button" class="form-control btn btn-login"> Simpan </button>
 											</div>
 										</div>
 									</div> 
@@ -479,6 +477,8 @@
             $("#linklogout").show();
             $("#sessions").html("Halo <b>"+localStorage.getItem("nama")+" - "+localStorage.getItem("nomor_induk")+ "!</b> Silahkan Submisi Dengan Menekan Tombol <button class='btn btn-primary' id='submisi' onclick='Submission();'> Submisi </button>");            
             $("#nomor_induk_jurnal").val(localStorage.getItem("nomor_induk"));
+            $("#nomor_induk_ilmiah").val(localStorage.getItem("nomor_induk"));
+            $("#nomor_induk_skripsi").val(localStorage.getItem("nomor_induk"));
         }
     });
     function BukaModalForm(){
@@ -668,6 +668,8 @@
                 $("#linklogout").show();
                 $("#sessions").html("Halo <b>"+localStorage.getItem("nama")+" - "+localStorage.getItem("nomor_induk")+ "!</b> Silahkan Submisi Dengan Menekan Tombol <button class='btn btn-primary' id='submisi' onclick='Submission();'> Submisi </button>");            
                 $("#nomor_induk_jurnal").val(localStorage.getItem("nomor_induk"));
+                $("#nomor_induk_ilmiah").val(localStorage.getItem("nomor_induk"));
+                $("#nomor_induk_skripsi").val(localStorage.getItem("nomor_induk"));
             }); 
        }
    });
@@ -676,23 +678,131 @@
 $("#register-submit").on("click",function(){
     alert('ente register');
 });
-
-$("#forgot-submit").on("click",function(){
-    alert('ente forgot');
+ 
+$("#ilmiah-submit").on("click",function(){
+    const file_ilmiah = $('#file_ilmiah').prop('files')[0]; 
+    var filetype = file_ilmiah.type;
+                                        
+    let formData = new FormData();
+    formData.append('file_ilmiah', file_ilmiah);
+    formData.append('judul_ilmiah', $('#judul_ilmiah').val()); 
+    formData.append('nomor_induk_ilmiah', $('#nomor_induk_ilmiah').val()); 
+    formData.append('nama_penulis_ilmiah', $('#nama_penulis_ilmiah').val());  
+    formData.append('tanggal_disahkan_ilmiah', $('#tanggal_disahkan_ilmiah').val());  
+    
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 800,
+        timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+    }); 
+   
+    if(filetype != 'application/pdf'){
+        Toast.fire({
+                icon: 'error',
+                title: 'File yang diizinkan hanya PDF!'
+                }); 
+    }else{
+        $.ajax({
+        type: 'POST',
+        url: "<?php echo base_url('front/simpan_ilmiah')?>",
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function(result){   
+                Toast.fire({
+                icon: 'success',
+                title: 'Upload Berhasil, Menunggu Proses Approval Redaksi!'
+                }).then(function() { 
+                    $("#Submission").modal('hide');
+                });  
+        },
+        error: function(){
+            Toast.fire({
+                icon: 'error',
+                title: 'Upload Gagal, Mohon Periksa Kembali!'
+                }).then(function() { 
+                    $("#Submission").modal('hide');
+                }); 
+        }
+        });
+    } 
 });
 
-$("#jurnal-submit").on("click",function(){
-    var judul_jurnal = $("#judul_jurnal").val();
-    var nomor_induk_jurnal = $("#nomor_induk_jurnal").val();
-    var nama_penulis_jurnal = $("#nama_penulis_jurnal").val();
-    var doi_jurnal = $("#doi_jurnal").val();
 
-    var issn_jurnal = $("#issn_jurnal").val();
-    var tahun_terbit_jurnal = $("#tahun_terbit_jurnal").val();
-    var volume_jurnal = $("#volume_jurnal").val();
-    var penerbit_jurnal = $("#penerbit_jurnal").val(); 
 
+$("#skripsi-submit").on("click",function(){
+    const file_skripsi = $('#file_skripsi').prop('files')[0]; 
+    var filetype = file_skripsi.type;
+                                        
+    let formData = new FormData();
+    formData.append('file_skripsi', file_skripsi);
+
+    formData.append('judul_skripsi', $('#judul_skripsi').val()); 
+    formData.append('nomor_induk_skripsi', $('#nomor_induk_skripsi').val()); 
+    formData.append('nama_penulis_skripsi', $('#nama_penulis_skripsi').val());  
+    formData.append('pembimbing_skripsi', $('#pembimbing_skripsi').val());  
+    formData.append('penguji_skripsi', $('#penguji_skripsi').val());  
+    formData.append('tanggal_sidang_skripsi', $('#tanggal_sidang_skripsi').val());  
+     
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 800,
+        timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+    }); 
+   
+    if(filetype != 'application/pdf'){
+        Toast.fire({
+                icon: 'error',
+                title: 'File yang diizinkan hanya PDF!'
+                }); 
+    }else{
+        $.ajax({
+        type: 'POST',
+        url: "<?php echo base_url('front/simpan_skripsi')?>",
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function(result){   
+                Toast.fire({
+                icon: 'success',
+                title: 'Upload Berhasil, Menunggu Proses Approval Redaksi!'
+                }).then(function() { 
+                    $("#Submission").modal('hide');
+                });  
+        },
+        error: function(){
+            Toast.fire({
+                icon: 'error',
+                title: 'Upload Gagal, Mohon Periksa Kembali!'
+                }).then(function() { 
+                    $("#Submission").modal('hide');
+                }); 
+        }
+        });
+    } 
+});
+
+
+
+$("#jurnal-submit").on("click",function(){ 
     const file_jurnal = $('#file_jurnal').prop('files')[0]; 
+    var filetype = file_jurnal.type;
+     
     let formData = new FormData();
     formData.append('file_jurnal', file_jurnal);
     formData.append('judul_jurnal', $('#judul_jurnal').val()); 
@@ -704,25 +814,49 @@ $("#jurnal-submit").on("click",function(){
     formData.append('volume_jurnal', $('#volume_jurnal').val()); 
     formData.append('penerbit_jurnal', $('#penerbit_jurnal').val()); 
 
-    $.ajax({
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 800,
+        timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+    }); 
+   
+    if(filetype != 'application/pdf'){
+        Toast.fire({
+                icon: 'error',
+                title: 'File yang diizinkan hanya PDF!'
+                }); 
+    }else{
+        $.ajax({
         type: 'POST',
         url: "<?php echo base_url('front/simpan_jurnal')?>",
         data: formData,
         cache: false,
         processData: false,
         contentType: false,
-        success: function (msg) {
-            if(msg == 'berhasil'){
-                alert('ok');
-            }else{
-                alert('faakk');
-            }
-           $("#jurnal_form").reset();
+        success: function(result){   
+                Toast.fire({
+                icon: 'success',
+                title: 'Upload Berhasil, Menunggu Proses Approval Redaksi!'
+                }).then(function() { 
+                    $("#Submission").modal('hide');
+                });  
         },
-        error: function () {
-            alert("Data Gagal Diupload");
+        error: function(){
+            Toast.fire({
+                icon: 'error',
+                title: 'Upload Gagal, Mohon Periksa Kembali!'
+                }).then(function() { 
+                    $("#Submission").modal('hide');
+                }); 
         }
-    });
+        });
+    } 
 });
     
     </script> 
