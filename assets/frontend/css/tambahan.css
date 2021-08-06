@@ -1,12 +1,3 @@
-td.details-control {
-    background: url('assets/images/details_open.png') no-repeat center center;
-    cursor: pointer;
-}
-tr.shown td.details-control {
-    background: url('assets/images/details_close.png') no-repeat center center;
-}
-
-
 .panel-login>.panel-heading {
     color: #00415d;
     background-color: #fff;

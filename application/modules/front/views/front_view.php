@@ -14,7 +14,7 @@
     <link href="<?php echo base_url('assets/frontend/');?>css/tambahan.css" rel="stylesheet">
     <link href="<?php echo base_url('assets/frontend/');?>sweetalert/sweetalert2.min.css" rel="stylesheet">  
 
-    <script src="<?php echo base_url('assets/frontend/');?>js/jquery.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="<?php echo base_url('assets/frontend/');?>js/jquery.session.js"></script>
     <script src="<?php echo base_url('assets/frontend/');?>js/bootstrap.min.js"></script>  
     <script src="<?php echo base_url('assets/frontend/');?>js/smoothscroll.js"></script>  
@@ -44,8 +44,7 @@
                         <li class="scroll active"><a href="#home">Home</a></li>  
                         <li class="scroll"><a href="#services">Fitur</a></li>
                         <li class="scroll"><a href="#about">Repository</a></li> 
-                        <li class="scroll"><a href="#contact-us">Kontak</a></li>
-                        <!-- <li><a href="javascript:void(0);" onclick="Ohyes();" class="btn btn-lg btn-info"> LOGIN </a> </li>  -->
+                        <li class="scroll"><a href="#contact-us">Kontak</a></li> 
                     </ul>
                     
                     <a href="javascript:void(0);" id="linklogin" style="margin-top:30px; font-weight:bold;" onclick="BukaModalForm();" class="btn btn-lg btn-sm btn-info"> <i class="fa fa-user-o" aria-hidden="true"></i> LOGIN </a>
@@ -154,8 +153,7 @@
 												<input type="button" name="por-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Masuk">
 											</div>
 										</div>
-									</div>
-									 
+									</div> 
 								</form>
 							</div>
 						</div>
@@ -165,6 +163,23 @@
 		</div>
         </div>
        
+        </div>
+    </div>
+    </div>
+
+    <!-- Modal History Login -->
+    <div class="modal fade" id="ModalHistory" tabindex="-1" role="dialog" aria-labelledby="ModalHistoryLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"> &nbsp; </h4>
+        </div>
+        <div class="modal-body">  
+            <h3 style="text-align:center;"> History Submission </h3>
+            <div id="res_history"></div>
+        </div> 
+
         </div>
     </div>
     </div>
@@ -309,6 +324,7 @@
             <h2 class="section-title wow fadeInDown">Repository Politeknik Negeri Manado</h2>
             
             <div class="alert alert-success" role="alert" id="sessions"> </div>
+            <div class="alert alert-success" role="alert" id="his_sessions"> </div>  
  
             <br>
             &nbsp;
@@ -375,31 +391,17 @@
         
         <div class="section-header" style="margin-top:100px;"> 
             <h2 class="section-title wow fadeInDown">Repository Politeknik Negeri Manado</h2>
-            <div align="center">
-                <button class='btn btn-primary'> Jurnal </button> 
-                <button class='btn btn-primary'> Karya Ilmiah </button>
-                <button class='btn btn-primary'> Skripsi </button>
-                <br>
-                &nbsp;
-            </div>
-            <table id="example" class="display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th> 
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th> 
-                    </tr>
-                </tfoot>
-            </table>
+            <table id="example" class="display table table-bordered table-stripped table-hovered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th></th> 
+                    <th>Judul</th> 
+                </tr>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>
         </div> 
     </div><!--/.container-->
 
@@ -465,17 +467,29 @@
         </div>
     </footer><!--/#footer-->
     
-
+    <style>
+        td.details-control {
+        background: url('https://raw.githubusercontent.com/DataTables/DataTables/1.10.7/examples/resources/details_open.png') no-repeat center center;
+        cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('https://raw.githubusercontent.com/DataTables/DataTables/1.10.7/examples/resources/details_close.png') no-repeat center center;
+        }
+    </style>
     <script> 
     $(document).ready(function(){ 
+        $("#results_history").DataTable();
+        $("#his_sessions").html("<button class='btn btn-primary' id='submisi' onclick='HisSubmission("+localStorage.getItem('nomor_induk')+");'> History Submisi </button>");            
         if(localStorage.getItem("nama") == '' || !(localStorage.getItem("nama"))){
             $("#linklogin").show();
             $("#linklogout").hide();
-            $("#sessions").html("Harap Login Terlebih Dahulu Sebelum Melakukan Submisi");
+            $("#sessions").html("Harap Login Terlebih Dahulu Sebelum Melakukan Submisi");  
+            $("#his_sessions").html("");            
         }else{
             $("#linklogin").hide();
             $("#linklogout").show();
             $("#sessions").html("Halo <b>"+localStorage.getItem("nama")+" - "+localStorage.getItem("nomor_induk")+ "!</b> Silahkan Submisi Dengan Menekan Tombol <button class='btn btn-primary' id='submisi' onclick='Submission();'> Submisi </button>");            
+            $("#his_sessions").html("<button class='btn btn-primary' id='submisi' onclick='HisSubmission("+localStorage.getItem('nomor_induk')+");'> History Submisi </button>");            
             $("#nomor_induk_jurnal").val(localStorage.getItem("nomor_induk"));
             $("#nomor_induk_ilmiah").val(localStorage.getItem("nomor_induk"));
             $("#nomor_induk_skripsi").val(localStorage.getItem("nomor_induk"));
@@ -487,6 +501,13 @@
   
     function Submission(){
         $("#Submission").modal({backdrop: 'static', keyboard: false,show:true});
+    }
+
+    function HisSubmission(params){
+        $("#ModalHistory").modal({backdrop: 'static', keyboard: false,show:true});
+        $.get("<?php echo base_url('front/get_history/')?>"+params,function(result){
+            $("#res_history").html(result)
+        }); 
     }
 
     function clear_form(){
@@ -515,62 +536,88 @@
                 localStorage.removeItem('nama');
                 localStorage.removeItem('nomor_induk');
                 $("#sessions").html("Harap Login Terlebih Dahulu Sebelum Melakukan Submisi");
+                $("#his_sessions").html("");     
             }); 
     }
-
- 
-    function format ( d ) {
-        // `d` is the original data object for the row
-        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-            '<tr>'+
-                '<td>Full name:</td>'+
-                '<td>'+d.names+'</td>'+
-            '</tr>'+
-            '<tr>'+
-                '<td>Extension number:</td>'+
-                '<td>'+d.extn+'</td>'+
-            '</tr>'+
-            '<tr>'+
-                '<td>Extra info:</td>'+
-                '<td>And any further details here (images etc)...</td>'+
-            '</tr>'+
-        '</table>';
+     
+/* Formatting function for row details - modify as you need */
+function format ( d ) {
+    var doi = '';
+    var dir = '';
+    if(d.doi==null){
+        doi = ' - ';
+    }else{
+        doi = d.doi;
     }
-    
+
+    if(d.id_jenis_publikasi==1){
+        dir = 'jurnal';
+    }else if(d.id_jenis_publikasi==2){
+        dir = 'karya_ilmiah';
+    }else if(d.id_jenis_publikasi==3){
+        dir = 'skripsi';
+    }
+    // `d` is the original data object for the row
+    return '<div class="slider">'+
+        '<table class="display tabletable-hovered"  cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+            '<tr>'+
+                '<td style="width:25%;"> <b> Nama Penulis </b> </td>'+
+                '<td style="width:25%;"> <b>: '+d.nama_penulis+' </b> </td>'+
+                '<td style="width:25%;"> <b> DOI </b> </td>'+
+                '<td style="width:25%;"> <b>: '+doi+' </b> </td>'+
+            '</tr><tr>'+
+                '<td style="width:25%;"> <b> Pembimbing </b> </td>'+
+                '<td style="width:25%;"> <b>: '+d.pembimbing+' </b> </td>'+
+                '<td style="width:25%;"> <b> Penguji </b> </td>'+
+                '<td style="width:25%;"> <b>: '+d.penguji+' </b> </td>'+
+            '</tr><tr>'+
+                '<td style="width:25%;"> <b> ISSN </b> </td>'+
+                '<td style="width:25%;"> <b>: '+d.issn+' </b> </td>'+
+                '<td style="width:25%;"> <b> Volume </b> </td>'+
+                '<td style="width:25%;"> <b>: '+d.volume+' </b> </td>'+
+            '</tr><tr>'+
+                '<td style="width:25%;"> <b> Tanggal Sidang </b> </td>'+
+                '<td style="width:25%;"> <b>: '+d.tanggal_sidang+' </b> </td>'+
+                '<td style="width:25%;"> <b> Tanggal Disahkan </b> </td>'+
+                '<td style="width:25%;"> <b>: '+d.tanggal_disahkan+' </b> </td>'+
+            '</tr><tr>'+
+                '<td colspan="4"> Download File <br> <a href="publikasi/'+dir+'/'+d.file+'" target="_blank"> '+d.file+'</a></td>'+
+            '</tr></table>'+
+    '</div>';
+}
+
     $(document).ready(function() {
-        var table = $('#example').DataTable( {
-            "ajax": "<?php echo base_url('backend_jurnal/fetch_data'); ?>",
+        var table = $('#example').DataTable({
+            "ajax": '<?php echo base_url('front/fetch_repository')?>',
             "columns": [
                 {
-                    "className":      'details-control',
+                    "class":          'details-control',
                     "orderable":      false,
                     "data":           null,
                     "defaultContent": ''
-                },
-                { "data": "names" },
-                { "data": "position" },
-                { "data": "office" }
-            ],
-            "order": [[1, 'asc']]
-        } );
-        
+                }, 
+                { "data": "judul"}
+            ]
+        });
+
         // Add event listener for opening and closing details
-        $('#example tbody').on('click', 'td.details-control', function () {
+    $('#example tbody').on('click', 'td.details-control', function () {
             var tr = $(this).closest('tr');
             var row = table.row( tr );
-    
+
             if ( row.child.isShown() ) {
-                // This row is already open - close it
-                row.child.hide();
-                tr.removeClass('shown');
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
             }
             else {
-                // Open this row
-                row.child( format(row.data()) ).show();
-                tr.addClass('shown');
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
             }
-        } );
-    } );
+        });
+    });
+
 
     $('#login-form-link').click(function(e) {
     $("#login-form").delay(100).fadeIn(100); 
@@ -667,6 +714,7 @@
                 $("#linklogin").hide();
                 $("#linklogout").show();
                 $("#sessions").html("Halo <b>"+localStorage.getItem("nama")+" - "+localStorage.getItem("nomor_induk")+ "!</b> Silahkan Submisi Dengan Menekan Tombol <button class='btn btn-primary' id='submisi' onclick='Submission();'> Submisi </button>");            
+                $("#his_sessions").html("<button class='btn btn-primary' id='submisi' onclick='HisSubmission("+localStorage.getItem('nomor_induk')+");'> History Submisi </button>");            
                 $("#nomor_induk_jurnal").val(localStorage.getItem("nomor_induk"));
                 $("#nomor_induk_ilmiah").val(localStorage.getItem("nomor_induk"));
                 $("#nomor_induk_skripsi").val(localStorage.getItem("nomor_induk"));
@@ -733,9 +781,7 @@ $("#ilmiah-submit").on("click",function(){
         }
         });
     } 
-});
-
-
+}); 
 
 $("#skripsi-submit").on("click",function(){
     const file_skripsi = $('#file_skripsi').prop('files')[0]; 
@@ -795,8 +841,7 @@ $("#skripsi-submit").on("click",function(){
         }
         });
     } 
-});
-
+}); 
 
 
 $("#jurnal-submit").on("click",function(){ 

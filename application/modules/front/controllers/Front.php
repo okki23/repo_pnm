@@ -46,7 +46,8 @@ class Front extends Parent_Controller {
 			'tahun_terbit'=>$tahun_terbit_jurnal,
 			'volume'=>$volume_jurnal,
 			'penerbit'=>$penerbit_jurnal,
-			'file'=>$newname
+			'file'=>$newname,
+			'tanggal_setor'=>date("Y-m-d")
 		);
 		$this->db->set($post_data);
 		$save = $this->db->insert('t_repository');
@@ -81,7 +82,8 @@ class Front extends Parent_Controller {
 			'nomor_induk'=>$nomor_induk_ilmiah,
 			'nama_penulis'=>$nama_penulis_ilmiah, 
 			'tanggal_disahkan'=>$tanggal_disahkan_ilmiah, 
-			'file'=>$newname
+			'file'=>$newname,
+			'tanggal_setor'=>date("Y-m-d")
 		);
 		$this->db->set($post_data);
 		$save = $this->db->insert('t_repository');
@@ -120,7 +122,8 @@ class Front extends Parent_Controller {
 			'pembimbing'=>$pembimbing_skripsi,
 			'penguji'=>$penguji_skripsi,
 			'tanggal_sidang'=>$tanggal_sidang_skripsi, 
-			'file'=>$newname
+			'file'=>$newname,
+			'tanggal_setor'=>date("Y-m-d")
 		);
 		$this->db->set($post_data);
 		$save = $this->db->insert('t_repository');
@@ -129,6 +132,55 @@ class Front extends Parent_Controller {
 		}else{
 			echo "gagal";
 		}
+	}
+
+	public function get_history(){
+		$id = $this->uri->segment(3);
+		$sql = $this->db->query("select a.*,b.jenis_publikasi from t_repository a 
+		left join jenis_publikasi b on b.id = a.id_jenis_publikasi where a.nomor_induk = '$id' ")->result();
+		$no = 1;
+		echo "<table class='table table-striped table-hovered table-bordered' id='results_history'> 
+		<tr>
+			<td> No  </td>
+			<td> Jenis Publikasi </td>
+			<td> Judul </td>
+			<td> Tanggal Setor </td> 
+			<td> Status </td> 
+		</tr>";
+		foreach($sql as $res){
+			echo "<tr>
+				<td>".$no."</td>
+				<td>".$res->jenis_publikasi."</td>
+				<td>";
+				if($res->id_jenis_publikasi == 1){
+					echo "<a href='".base_url('publikasi/jurnal/').$res->file."' target='_blank'> ".$res->judul ."</a>";	
+				}else if($res->id_jenis_publikasi == 2){
+					echo "<a href='".base_url('publikasi/karya_ilmiah/').$res->file."' target='_blank'> ".$res->judul ."</a>";	
+				}else{
+					echo "<a href='".base_url('publikasi/skripsi/').$res->file."' target='_blank'> ".$res->judul ."</a>";	
+				}
+				echo "<td>".$res->tanggal_setor."</td>
+				<td>";
+				if($res->nomor_induk_approval == NULL || $res->nomor_induk_approval == ''){
+					echo "Belum Disetujui";	
+				}else{
+					echo "Telah Disetujui";
+				}
+				echo "</td> </tr>";
+		$no++;
+		}
+		echo "</table>"; 
+	}
+
+	public function fetch_repository(){
+	 
+		$sql_data = $this->db->query('select a.*,b.jenis_publikasi from t_repository a
+		left join jenis_publikasi b on b.id = a.id_jenis_publikasi')->result_array(); 
+		
+		$callback = array('data'=>$sql_data);     
+		header('Content-Type: application/json');    
+		echo json_encode($callback);
+	 
 	}
 }
  

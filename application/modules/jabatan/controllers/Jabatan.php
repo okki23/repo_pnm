@@ -23,9 +23,7 @@ class jabatan extends Parent_Controller {
 		$data['konten'] = 'jabatan/jabatan_view';
 		$this->load->view('template_view',$data);		
    
-	}
- 	
-   
+	} 
 
   	public function fetch_jabatan(){  
        $getdata = $this->m_jabatan->fetch_jabatan();

@@ -332,15 +332,6 @@
             
 
  
-<style type="text/css">
-    td.details-control {
-    background: url('https://raw.githubusercontent.com/DataTables/DataTables/1.10.7/examples/resources/details_open.png') no-repeat center center;
-    cursor: pointer;
-}
-tr.shown td.details-control {
-    background: url('https://raw.githubusercontent.com/DataTables/DataTables/1.10.7/examples/resources/details_close.png') no-repeat center center;
-}
-</style>
    <script type="text/javascript">
 
     function Ubah_Data_Val_Harga(id){
