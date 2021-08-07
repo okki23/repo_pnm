@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-  
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 class Front extends Parent_Controller {
  
 
@@ -175,12 +177,103 @@ class Front extends Parent_Controller {
 	public function fetch_repository(){
 	 
 		$sql_data = $this->db->query('select a.*,b.jenis_publikasi from t_repository a
-		left join jenis_publikasi b on b.id = a.id_jenis_publikasi')->result_array(); 
+		left join jenis_publikasi b on b.id = a.id_jenis_publikasi 
+		where a.nomor_induk_approval != "" ')->result_array(); 
 		
 		$callback = array('data'=>$sql_data);     
 		header('Content-Type: application/json');    
 		echo json_encode($callback);
 	 
+	}
+
+	public function sendmail(){ 
+		$mail = new PHPMailer(true);
+
+		try { 
+			$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+			$mail->isSMTP();                                            //Send using SMTP
+			$mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+			$mail->Username   = 'okkisetyawan@gmail.com';                     //SMTP username
+			$mail->Password   = 'DoaTerbaik2019_OKE!@';                     //Enable implicit TLS encryption
+			$mail->SMTPSecure = "ssl";
+			$mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+			 
+			$mail->setFrom('from@example.com', 'Mailer');
+			$mail->addAddress('okkisetyawan@gmail.com', 'Okki Setyawan');     //Add a recipient
+			$mail->addReplyTo('info@example.com', 'Information'); 
+			
+			$mail->isHTML(true);                                  //Set email format to HTML
+			$mail->Subject = 'Here is the subject';
+			$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+			$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+			$mail->send();
+			echo 'Message has been sent';
+		} catch (Exception $e) {
+			echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+		}
+	}
+
+	public function register(){
+
+		$nomor_induk = $this->input->post('nomor_induk_regis');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password_regis');
+		$confirm_password = $this->input->post('confirm_password_regis'); 
+		$nama = $this->input->post('nama');
+		$jenkel = $this->input->post('jenkel');
+		$telp = $this->input->post('telp');
+		$alamat = $this->input->post('alamat');
+		$role = $this->input->post('role');
+
+		if($role == '1'){
+			$post_dosen = array('nidn'=>$nomor_induk,
+							    'nama'=>$nama,
+								'jenkel'=>$jenkel,
+								'telp'=>$telp,
+								'alamat'=>$alamat,
+								'email'=>$email,
+								'password'=>md5($password));
+			$this->db->insert('dosen',$post_dosen);
+		}else{
+			$post_mhs = array('nim'=>$nomor_induk,
+							    'nama'=>$nama,
+								'jenkel'=>$jenkel,
+								'telp'=>$telp,
+								'alamat'=>$alamat,
+								'email'=>$email,
+								'password'=>md5($password));
+			$this->db->insert('mahasiswa',$post_mhs);
+		}
+ 		
+		$mail = new PHPMailer(true);
+
+		try { 
+			$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+			$mail->isSMTP();                                            //Send using SMTP
+			$mail->Host 	  = 'mail.weskonangan.com';
+			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+			$mail->Username   = 'okki@weskonangan.com';
+			$mail->Password   = 'kecepatan93';
+			$mail->SMTPSecure = "ssl";
+			$mail->Port       = 465;                              
+			
+			$mail->setFrom('repository@pnm.sch.id', 'Info Repository');
+			$mail->addAddress($email, 'User Repository');     //Add a recipient
+			$mail->addReplyTo('repository@pnm.sch.id', 'Info Repository');
+			
+			$mail->isHTML(true);                                  //Set email format to HTML
+			$mail->Subject = 'Informasi Akun Repository';
+			$mail->Body    = 'Halo ini akun anda dan telah aktif <br> <b> Username / Nomor Induk : '.$nomor_induk. ' </b> <br> <b> Password : '.$password.' </b> <br> Terima kasih';
+			$mail->AltBody = 'Halo ini akun anda dan telah aktif <br> <b> Username / Nomor Induk : '.$nomor_induk. ' </b> <br> <b> Password : '.$password.' </b> <br> Terima kasih';
+
+			$mail->send();
+			// echo 'Message has been sent';
+		} catch (Exception $e) {
+			echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+		}
 	}
 }
  

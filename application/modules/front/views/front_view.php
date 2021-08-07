@@ -111,16 +111,16 @@
 								</form>
 								<form id="register-form" method="post" role="form" style="display: none;">
 									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+										<input type="text" name="nomor_induk_regis" id="nomor_induk_regis" tabindex="1" class="form-control" placeholder="Nomor Induk" value="">
 									</div>
 									<div class="form-group">
 										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+										<input type="password" name="password_regis" id="password_regis" tabindex="2" class="form-control" placeholder="Password">
 									</div>
 									<div class="form-group">
-										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+										<input type="password" name="confirm_password_regis" id="confirm_password_regis" tabindex="2" class="form-control" placeholder="Confirm Password">
 									</div>
                                     <select name="roles" id="roles"  class="form-control" >
                                             <option value="">--Roles--</option>
@@ -724,7 +724,29 @@ function format ( d ) {
 });
 
 $("#register-submit").on("click",function(){
-    alert('ente register');
+
+    var  nomor_induk_regis = $("#nomor_induk_regis").val();
+    var  email = $("#email").val();
+    var  password_regis = $("#password_regis").val();
+    var  confirm_password_regis = $("#confirm_password_regis").val();
+    var  role = $("#role").val();
+
+    console.log(password);
+    // console.log(confirm_password);
+      
+    if(password_regis != confirm_password_regis){
+        alert('password lu ga sama oncom!');
+    }else{
+        $.ajax({
+        url:"<?php echo base_url('front/register'); ?>",
+        type:"POST",
+        data:{nomor_induk_regis:nomor_induk_regis,email:email,password_regis:password_regis,confirm_password_regis:confirm_password_regis,role:role},
+        success:function(result){
+            console.log(result);
+        }
+        });
+    }
+    
 });
  
 $("#ilmiah-submit").on("click",function(){
