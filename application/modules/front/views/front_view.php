@@ -726,7 +726,7 @@ function format ( d ) {
        url:"<?php echo base_url('login_front/auth'); ?>",
        data:{nomor_induk:nomor_induk,password:password,roles_login:roles_login},
        type:"POST",
-       success:function(result){
+       success:function(result){ 
             $("#myModal").modal('hide');
             clear_form(); 
             var obj = JSON.parse(result);  

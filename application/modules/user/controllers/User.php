@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends Parent_Controller {
  
   var $nama_tabel = 'm_user';
-  var $daftar_field = array('id','username','password','id_pegawai','level');
+  var $daftar_field = array('id','username','password');
   var $primary_key = 'id';
   
  	public function __construct(){
@@ -35,8 +35,7 @@ class User extends Parent_Controller {
 	 
 	public function get_data_edit(){
 		$id = $this->uri->segment(3); 
-		$get = $this->db->query("select a.*,b.nama from m_user a
-		left join m_pegawai b on b.id = a.id_pegawai WHERE a.id = '".$id."' ")->row();
+		$get = $this->db->query("select * from m_user WHERE id = '".$id."' ")->row();
 		echo json_encode($get,TRUE);
 	}
 	
@@ -56,7 +55,7 @@ class User extends Parent_Controller {
 	}
  
 	public function simpan_data_user(){
-		$data_form = $this->m_user->array_from_post(array('id','username','password','id_pegawai','level'));
+		$data_form = $this->m_user->array_from_post(array('id','username'));
 		$id = $data_form['id'];	 
 	 
 		//apabila user id kosong maka input data baru
@@ -70,11 +69,11 @@ class User extends Parent_Controller {
 
 			if($data_form['password'] == '' || empty($data_form['password'])){
 				 
-				return $this->db->query("update m_user set username = '".$data_form['username']."',  id_pegawai = '".$data_form['id_pegawai']."', level = '".$data_form['level']."'  where id = '".$id."' ");
+				return $this->db->query("update m_user set username = '".$data_form['username']."' where id = '".$id."' ");
 		 
 			}else{
 				 
-				return $this->db->query("update m_user set username = '".$data_form['username']."',password = '".base64_encode($data_form['password'])."', id_pegawai = '".$data_form['id_pegawai']."', level = '".$data_form['level']."'  where id = '".$id."' ");
+				return $this->db->query("update m_user set username = '".$data_form['username']."',password = '".base64_encode($data_form['password'])."' where id = '".$id."' ");
 			}
 
 		}

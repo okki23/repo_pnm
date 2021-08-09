@@ -163,7 +163,7 @@ class Front extends Parent_Controller {
 				}
 				echo "<td>".$res->tanggal_setor."</td>
 				<td>";
-				if($res->nomor_induk_approval == NULL || $res->nomor_induk_approval == ''){
+				if($res->is_approve == 'N' || $res->is_approve == ''){
 					echo "Belum Disetujui";	
 				}else{
 					echo "Telah Disetujui";
@@ -178,7 +178,7 @@ class Front extends Parent_Controller {
 	 
 		$sql_data = $this->db->query('select a.*,b.jenis_publikasi from t_repository a
 		left join jenis_publikasi b on b.id = a.id_jenis_publikasi 
-		where a.nomor_induk_approval != "" ')->result_array(); 
+		where a.is_approve != "N" ')->result_array(); 
 		
 		$callback = array('data'=>$sql_data);     
 		header('Content-Type: application/json');    
@@ -275,8 +275,7 @@ class Front extends Parent_Controller {
 		}
 	}
 
-	public function forget_pass(){
-		var_dump($this->input->post());
+	public function forget_pass(){ 
 		$email_forget = $this->input->post('email_forget'); 
 		$password_forget = $this->input->post('password_forget'); 
 		$roles_forget = $this->input->post('roles_forget'); 

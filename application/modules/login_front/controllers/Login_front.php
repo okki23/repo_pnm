@@ -31,17 +31,27 @@ class Login_front extends Parent_Controller {
 			$auth = $this->m_login_front->auth_dsn($arrpost)->num_rows(); 
 			if($auth > 0){
 				$result = $this->m_login_front->auth_dsn($arrpost)->row(); 
-				$response = array("code"=>200,"data"=>array("nomor_induk"=>$result->nidn,"nama"=>$result->nama,"role"=>"dosen")); 
+				$response = array("code"=>200,"data"=>array("nomor_induk"=>$result->nidn,"nama"=>$result->nama,"role"=>"dosen","message"=>"success")); 
 				$this->session->set_userdata(array("nomor_induk"=>$result->nidn,"nama"=>$result->nama,"role"=>"dosen"));
+				echo json_encode($response);
+			}else{
+				$result = $this->m_login_front->auth_dsn($arrpost)->row(); 
+				$response = array("code"=>400,"data"=>array("nomor_induk"=>$result->nidn,"nama"=>$result->nama,"role"=>"dosen","message"=>"failed")); 
+				$this->session->set_userdata(array("nomor_induk"=>$result->nidn,"nama"=>$result->nama,"role"=>"dosen",));
 				echo json_encode($response);
 			}
 		}else{
 			//mhs
 			$arrpost = array('nim'=>$nomor_induk,'password'=>$password);
-			$auth = $this->m_login_front->auth_mhs($arrpost)->num_rows(); 
+			$auth = $this->m_login_front->auth_mhs($arrpost)->num_rows();   
 			if($auth > 0){
-				$result = $this->m_login_front->auth_mhs($arrpost)->row(); 
-				$response = array("code"=>200,"data"=>array("nomor_induk"=>$result->nim,"nama"=>$result->nama,"role"=>"mahasiswa")); 
+				$result = $this->m_login_front->auth_mhs($arrpost)->row();  
+				$response = array("code"=>200,"data"=>array("nomor_induk"=>$result->nim,"nama"=>$result->nama,"role"=>"mahasiswa","message"=>"success")); 
+				$this->session->set_userdata(array("nomor_induk"=>$result->nim,"nama"=>$result->nama,"role"=>"mahasiswa"));
+				echo json_encode($response);
+			}else{
+				$result = $this->m_login_front->auth_mhs($arrpost)->row();   
+				$response = array("code"=>200,"data"=>array("nomor_induk"=>$result->nim,"nama"=>$result->nama,"role"=>"mahasiswa","message"=>"failed")); 
 				$this->session->set_userdata(array("nomor_induk"=>$result->nim,"nama"=>$result->nama,"role"=>"mahasiswa"));
 				echo json_encode($response);
 			}

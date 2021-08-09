@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                               Manajemen User
+                                Dosen
                             </h2>
                             <br>
                             <a href="javascript:void(0);" id="addmodal" class="btn btn-primary waves-effect">  <i class="material-icons">add_circle</i>  Tambah Data </a>
@@ -22,10 +22,11 @@
                                <table class="table table-bordered table-striped table-hover js-basic-example" id="example" >
   
                                     <thead>
-                                        <tr>
-                                           
-                                            <th style="width:5%;">Username</th>   
-                                            <th style="width:10%;">Opsi</th> 
+                                        <tr> 
+                                            <th style="width:5%;">NIM</th> 
+                                            <th style="width:5%;">Nama</th>
+                                            <th style="width:5%;">Alamat</th> 
+                                            <th style="width:5%;">Opsi</th> 
                                         </tr>
                                     </thead> 
                                 </table> 
@@ -51,20 +52,42 @@
                         <div class="modal-body">
                               <form method="post" id="user_form" enctype="multipart/form-data">   
                                  
-                                    <input type="hidden" name="id" id="id"> 
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" name="username" id="username" class="form-control" placeholder="Username" />
-                                        </div>
-                                    </div> 
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <span class="label label-danger">* Kosongkan Apabila Tidak Mengganti Password </span>
-                                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" /> 
-                                        </div>
-                                    </div> 
-                                    
+                                    <input type="hidden" name="id" id="id">    
 
+                                    <div class="form-group">
+                                        <label for="nim"> NIDN </label>
+										<input type="text" name="nidn" id="nidn" tabindex="1" class="form-control" placeholder="NIDN" value="">
+									</div>
+                                    <div class="form-group">
+                                        <label for="nama"> Nama </label>
+										<input type="text" name="nama" id="nama" tabindex="1" class="form-control" placeholder="Nama" value="">
+									</div>
+                                    <div class="form-group">
+                                        <label for="alamat"> Alamat </label>
+										<input type="text" name="alamat" id="alamat" tabindex="1" class="form-control" placeholder="Alamat" value="">
+									</div>
+                                    <div class="form-group">
+                                        <label for="telp"> Telp </label>
+										<input type="text" name="telp" id="telp" tabindex="1" class="form-control" placeholder="Telepon" value="">
+									</div> 
+                                    <div class="form-group">
+                                        <label for="jenkel"> Jenis Kelamin </label>
+                                        <select name="jenkel" id="jenkel"  class="form-control" >
+                                            <option value="">--Pilih Jenis Kelamin--</option>
+                                            <option value="L">Laki-Laki</option>
+                                            <option value="P">Perempuan</option>
+                                        </select> 
+									</div> 
+
+									<div class="form-group"> 
+                                        <label for="email"> Email </label>
+										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+									</div>
+									<div class="form-group">
+                                        <label for="password"> Password </label>
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+									</div>
+                              
                                    <button type="button" onclick="Simpan_Data();" class="btn btn-success waves-effect"> <i class="material-icons">save</i> Simpan</button>
 
                                    <button type="button" name="cancel" id="cancel" class="btn btn-danger waves-effect" onclick="javascript:Bersihkan_Form();" data-dismiss="modal"> <i class="material-icons">clear</i> Batal</button>
@@ -75,86 +98,50 @@
                 </div>
     </div>
 
-    
 
-    <!-- modal cari karyawan -->
-    <div class="modal fade" id="CariKaryawanModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" >Cari Jabatan</h4>
-                        </div>
-                        <div class="modal-body">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
-
-                                <br>
-                                <hr>
-
-                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_karyawan" >
   
-                                    <thead>
-                                        <tr>  
-                                            <th style="width:98%;">NIP </th> 
-                                            <th style="width:98%;">Nama </th> 
-                                         </tr>
-                                          
-                                    </thead> 
-                                    <tbody id="daftar_karyawan">
-
-                                </tbody>
-                                </table> 
-                       </div>
-                     
-                    </div>
-                </div>
-    </div>
-
+   
  
- 
+</style>
    <script type="text/javascript">
-    
-     $("#adminbtn").on("click",function(){
-        $("#level").val('1');
-        $(this).attr('class','btn btn-primary');
-        $("#userbtn").attr('class','btn btn-default');
-
-    });
-
-    $("#userbtn").on("click",function(){
-        $("#level").val('2');
-       $(this).attr('class','btn btn-primary');
-        $("#adminbtn").attr('class','btn btn-default');
-
-         
-    });
-  
+     
        
      function Ubah_Data(id){
         $("#defaultModalLabel").html("Form Ubah Data");
         $("#defaultModal").modal('show');
- 
+        $('#user_form')[0].reset();
         $.ajax({
-             url:"<?php echo base_url(); ?>user/get_data_edit/"+id,
+             url:"<?php echo base_url(); ?>dosen/get_data_edit/"+id,
              type:"GET",
              dataType:"JSON", 
-             success:function(result){  
+             success:function(result){ 
+                  console.log(result);
                  $("#defaultModal").modal('show'); 
-                 $("#id").val(result.id);
-                 $("#username").val(result.username);   
+                 $("#id").val(result.id); 
+                 $("#nidn").val(result.nidn); 
+                 $("#nama").val(result.nama); 
+                 $("#alamat").val(result.alamat); 
+                 $("#telp").val(result.telp); 
+                 $("#email").val(result.email);  
+                 if(result.jenkel == 'L'){
+                    $('#jenkel').val('L').change(); 
+                 }else{
+                    $('#jenkel').val('P').change(); 
+                 } 
              }
          });
      }
  
      function Bersihkan_Form(){
-        $(':input').val(''); 
+        $(':input').val('');  
      }
- 
+
      function Hapus_Data(id){
         if(confirm('Anda yakin ingin menghapus data ini?'))
         {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo base_url('user/hapus_data')?>/"+id,
+            url : "<?php echo base_url('dosen/hapus_data')?>/"+id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -172,7 +159,7 @@
                     });
                  
             },
-            error: function (jqXHR, textStatus, errorThrown)
+            error: function (jqXHR, textdosen, errorThrown)
             {
                 alert('Error deleting data');
             }
@@ -181,27 +168,13 @@
     }
     }
     
-    
-    function Simpan_Data(){
-        //setting semua data dalam form dijadikan 1 variabel 
-         var formData = new FormData($('#user_form')[0]); 
-
-          
-         //validasi form sebelum submit ke controller
-         var username = $("#username").val();
-        
-        
-          
-         if(username == ''){
-            alert("Username Belum anda masukkan!");
-            $("#username").parents('.form-line').addClass('focused error');
-            $("#username").focus();
-          
-         }else{
-
-            //transaksi dibelakang layar
+      
+  
+    function Simpan_Data(){ 
+        var formData = new FormData($('#user_form')[0]);  
+ 
             $.ajax({
-             url:"<?php echo base_url(); ?>user/simpan_data_user",
+             url:"<?php echo base_url(); ?>dosen/simpan_data",
              type:"POST",
              data:formData,
              contentType:false,  
@@ -211,7 +184,7 @@
                  $("#defaultModal").modal('hide');
                  $('#example').DataTable().ajax.reload(); 
                  $('#user_form')[0].reset();
-                 
+                 Bersihkan_Form();
                  $.notify("Data berhasil disimpan!", {
                     animate: {
                         enter: 'animated fadeInRight',
@@ -221,13 +194,11 @@
                     type: 'success'
                 });
              }
-            }); 
-
-         }
-
+            });  
+   
     }
       
-     
+   
        $(document).ready(function() {
            
         $("#addmodal").on("click",function(){
@@ -235,14 +206,14 @@
             $("#method").val('Add');
             $("#defaultModalLabel").html("Form Tambah Data");
         });
-        
          
-        $('#example').DataTable( {
-            "ajax": "<?php echo base_url(); ?>user/fetch_user" 
-        });
-
        
-     
+     $('#example').DataTable( {
+            "ajax": "<?php echo base_url(); ?>dosen/fetch_dosen" 
+               
+        });
+ 
+      
          
       });
   
