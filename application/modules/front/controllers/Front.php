@@ -13,7 +13,13 @@ class Front extends Parent_Controller {
 
 	public function index(){
 	 
-		$data['judul'] = $this->data['judul'];    
+		$data['judul'] = $this->data['judul'];
+		$data_beranda = $this->db->get('page_beranda')->row();
+		$data_alamat = $this->db->get('page_alamat')->row();
+		$data_fitur= $this->db->get('page_fitur')->result();
+		$data['parse_beranda'] = $data_beranda; 
+		$data['page_alamat'] = $data_alamat;
+		$data['page_fitur'] = $data_fitur;   
 		$this->load->view('front_view',$data);
 	}
 
@@ -285,10 +291,10 @@ class Front extends Parent_Controller {
 				try { 
 				$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
 				$mail->isSMTP();                                         
-				$mail->Host 	  = 'mail.weskonangan.com';
+				$mail->Host 	  = 'smtp.gmail.com';
 				$mail->SMTPAuth   = true;                                   
-				$mail->Username   = 'okki@weskonangan.com';
-				$mail->Password   = 'kecepatan93';
+				$mail->Username   = 'okkisetyawan@gmail.com';
+				$mail->Password   = 'DoaTerbaik2019_OKE!@';
 				$mail->SMTPSecure = "ssl";
 				$mail->Port       = 465;                              
 				
@@ -312,12 +318,12 @@ class Front extends Parent_Controller {
 				try { 
 				$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
 				$mail->isSMTP();                                         
-				$mail->Host 	  = 'mail.weskonangan.com';
+				$mail->Host 	  = 'smtp.gmail.com';
 				$mail->SMTPAuth   = true;                                   
-				$mail->Username   = 'okki@weskonangan.com';
-				$mail->Password   = 'kecepatan93';
+				$mail->Username   = 'okkisetyawan@gmail.com';
+				$mail->Password   = 'DoaTerbaik2019_OKE!@';
 				$mail->SMTPSecure = "ssl";
-				$mail->Port       = 465;                              
+				$mail->Port       = 465;                                                   
 				
 				$mail->setFrom('repository@pnm.sch.id', 'Info Repository - Reset Password');
 				$mail->addAddress($email_forget, 'User Repository');     

@@ -76,11 +76,7 @@
  
 </style>
    <script type="text/javascript">
-    
-
-   
-   
-         
+     
        
      function Ubah_Data(id){
         $("#defaultModalLabel").html("Form Ubah Data");

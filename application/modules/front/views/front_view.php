@@ -169,8 +169,7 @@
                                             <option value="">--Roles--</option>
                                             <option value="1">Dosen</option>
                                             <option value="2">Mahasiswa</option>
-                                        </select> 
-                                        sdss
+                                        </select>  
 									</div> 
 									<div class="form-group">
 										<div class="row">
@@ -345,15 +344,15 @@
         <div class="container">
 
             <div class="section-header" style="margin-top:100px;">
-                 
-            <h2 class="section-title wow fadeInDown">Repository Politeknik Negeri Manado</h2>
+            
+            <h2 class="section-title wow fadeInDown"><?php echo $parse_beranda->title; ?></h2>
             
             <div class="alert alert-success" role="alert" id="sessions"> </div>
             <div class="alert alert-success" role="alert" id="his_sessions"> </div>  
  
             <br>
             &nbsp;
-                <p class="wow fadeInDown" style="text-align:justify;">Sebagai tempat menimba ilmu pengetahuan. Universitas Gunadarma menyediakan Perpustakaan yang dilengkapi dengan beragam bahan pustaka yang terdiri dari buku literatur baik dalam bahasa Indonesia maupun dalam bahasa Inggris, majalah, jurnal ilmiah serta buku ilmu pengetahuan lainnya. Fasilitas Perpustakaan Universitas Gunadarma telah digunakan oleh mahasiswa, dosen, karyawan dan alumni Universitas Gunadarma. Sesuai dengan kemajuan teknologi komunikasi telah dikembangkan perpustakaan audio visual di Universitas Gunadarma. Perpustakaan ini dilengkapi dengan peralatan video dan TV , juga perangkat komputer untuk keperluan belajar mandiri.Koleksi perpustakaan bersifat satu arah dan dua arah (multi media interaktif) Apabila seorang mahasiswa kesulitan dalam salah satu mata kuliah, mahasiswa dapat mengunjungi perpustakaan audio visual kemudian mencari koleksi yang diinginkan, kemudiana belajar secara mandiri. Dengan perpustakaan audio visual diharapkan keterbatasan ruang dan waktu dapat dihilangkan. seorang mahasiswa sastra Inggris, dapat mempelajari bagaimana kebudayaan inggris dan karya sastra klasik inggris melalui video, atau melalui audio. Untuk memenuhi koleksi video dan multi media interaktif, perpustakaan audio visual dilengkapi dengan studio produksi. distudio ini diproduksi video dan multi media interaktif. Direncanakan akan di produksi video/vcd dan multimedia interaktif untuk semua mata kuliah yang diberikan di universitas gunadarma. Para mahasiswa, dosen dan karyawan serta pihak lain yang berkepentingan dapat memanfaatkan fasilitas tersebut guna mendukung pelaksanaan kegiatan belajar mengajar. Tujuan Menunjang Tridarma Perguruan Tinggi dengan fungsinya sebagai sumber informasi bagi pelaksanaan proses belajar dan mengajar, penelitian dan pengabdian pada masyarakat. Sejarah 1987 Berdiri Perpustakaan STKG di kampus Depok 1992 Berdiri Perpustakaan STIE di kampus Kelapa Dua 1996 Bertambah 4 buah Perpustakaan fakultas yaitu: Perpustakaan fakultas Teknik Perencanaan, Teknik Industri, Psikologi dan Sastra 2000 Secara keseluruhan disebut sebagai Perpustakaan Universitas Lokasi Operasional Kampus D Jalan Margonda Raya No. 100 Depok Telepon : 78881112 - ext. 301 Gedung III Lt. 1 Perpustakaan Fakultas Ilmu Komputer, Fakultas Teknologi Industri, dan Fakultas Teknik Perencanaan dan Sipil Kampus E Jalan Akses UI Kelapa Dua Telepon : 8727541 - ext. 501 Gedung V Lt. 1 Perpustakaan Fakultas Ekonomi, Fakultas Psikologi dan Fakultas Sastra dan Bahasa Perpustakaan Audio Visual Kampus J Jl. KH. Noer Ali, Kalimalang, Bekasi Telepon : 021-88860117 ext 117 Lt. 3 Perpustakaan Fakultas Ilmu Komputer, Fakultas Teknologi Industri, Fakultas Teknik Perencanaan dan Sipil,Fakultas Ekonomi, Fakultas Psikologi dan Fakultas Sastra  .</p>
+                <p class="wow fadeInDown" style="text-align:justify;"> <?php echo $parse_beranda->desc; ?></p>
             </div>
   
         </div><!--/.container-->
@@ -366,6 +365,9 @@
                 <p class="wow fadeInDown">Silahkan nikmati fitur berikut ini untuk melakukan upload download penelitian</p>
             </div>
 
+            <?php 
+            var_dump($page_fitur);
+            ?>
             <div class="row">
                 <div class="features">
                     <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms">
@@ -383,7 +385,7 @@
                     <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
                         <div class="media service-box">
                             <div class="pull-left">
-                                <i class="fa fa-compass"></i>
+                                <i class="fa fa-futbol-o"></i>
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading"> Sign In dan Register</h4>
@@ -395,7 +397,7 @@
                     <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="200ms">
                         <div class="media service-box">
                             <div class="pull-left">
-                                <i class="fa fa-database"></i>
+                                <i class="fa fa-futbol-o"></i>
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">Multi Dokumen</h4>
@@ -449,11 +451,8 @@
                             <h3>Info Kontak</h3>
 
                             <address>
-                              <strong>Kampus Politeknik Negeri Manado</strong><br>
-                              Jl. Raya Politeknik Kel. Buha Manado, Kecamatan Mapanget, Sulawesi Utara <br>
-                              Indonesia<br>
-                              <abbr title="Phone">P:</abbr> (0431) 815 212, 815 217 <br>
-                              <abbr title="Phone">E:</abbr> informasi@polimdo.ac.id 
+                              <strong><?php echo $page_alamat->title; ?></strong><br>
+                              <?php echo $page_alamat->desc; ?>
                             </address>
 					</div></div>
                     <div class="col-sm-8 col-md-8">
