@@ -94,7 +94,7 @@
 									</div> 
                                     <div class="form-group">
 										<select name="roles_login" id="roles_login"  class="form-control" >
-                                            <option value="">--Roles--</option>
+                                            <option value="">--Pilih Role--</option>
                                             <option value="1">Dosen</option>
                                             <option value="2">Mahasiswa</option>
                                         </select> 
@@ -103,17 +103,33 @@
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
                                                 <button  id="login-submit" type="button" class="form-control btn btn-login"> Login </button>
-												<!-- <input type="button" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Masuk"> -->
 											</div>
 										</div>
 									</div>
 									 
 								</form>
+
 								<form id="register-form" method="post" role="form" style="display: none;">
 									<div class="form-group">
 										<input type="text" name="nomor_induk_regis" id="nomor_induk_regis" tabindex="1" class="form-control" placeholder="Nomor Induk" value="">
 									</div>
-									<div class="form-group">
+                                    <div class="form-group">
+										<input type="text" name="nama" id="nama" tabindex="1" class="form-control" placeholder="Nama" value="">
+									</div>
+                                    <div class="form-group">
+										<input type="text" name="alamat" id="alamat" tabindex="1" class="form-control" placeholder="Alamat" value="">
+									</div>
+                                    <div class="form-group">
+										<input type="text" name="telp" id="telp" tabindex="1" class="form-control" placeholder="Telepon" value="">
+									</div> 
+                                    <div class="form-group">
+                                    <select name="jenkel" id="jenkel"  class="form-control" >
+                                            <option value="">--Pilih Jenis Kelamin--</option>
+                                            <option value="L">Laki-Laki</option>
+                                            <option value="P">Perempuan</option>
+                                    </select> 
+									</div> 
+									<div class="form-group"> 
 										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
 									</div>
 									<div class="form-group">
@@ -123,34 +139,43 @@
 										<input type="password" name="confirm_password_regis" id="confirm_password_regis" tabindex="2" class="form-control" placeholder="Confirm Password">
 									</div>
                                     <select name="roles" id="roles"  class="form-control" >
-                                            <option value="">--Roles--</option>
+                                            <option value="">--Pilih Role--</option>
                                             <option value="1">Dosen</option>
                                             <option value="2">Mahasiswa</option>
-                                        </select> 
+                                    </select> 
+                                    <br>
 									<div class="form-group">
 										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="button" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+											<div class="col-sm-6 col-sm-offset-3"> 
+                                                <button id="register-submit" name="register-submit" type="button" class="form-control btn btn-login"> Daftar </button>
 											</div>
 										</div>
 									</div>
+                                    </br>
 								</form>
+
                                 <form id="forgot-pass" method="post" role="form" style="display: none;">
 									<div class="form-group">
-										<input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
-									</div>
-								 
+										<input type="text" name="email_forget" id="email_forget" tabindex="1" class="form-control" placeholder="Email" value="">
+									</div> 
                                     <div class="form-group">
-										<select name="roles" id="roles"  class="form-control" >
+										<input type="password" name="password_forget" id="password_forget" tabindex="2" class="form-control" placeholder="Password">
+									</div>
+									<div class="form-group">
+										<input type="password" name="confirm_password_forget" id="confirm_password_forget" tabindex="2" class="form-control" placeholder="Confirm Password">
+									</div>
+                                    <div class="form-group">
+										<select name="roles_forget" id="roles_forget"  class="form-control" >
                                             <option value="">--Roles--</option>
                                             <option value="1">Dosen</option>
                                             <option value="2">Mahasiswa</option>
                                         </select> 
+                                        sdss
 									</div> 
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="button" name="por-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Masuk">
+                                            <button id="forgot-submit" name="forgot-submit" type="button" class="form-control btn btn-login"> Reset Password </button>
 											</div>
 										</div>
 									</div> 
@@ -724,31 +749,94 @@ function format ( d ) {
 });
 
 $("#register-submit").on("click",function(){
-
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 800,
+            timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+        }); 
     var  nomor_induk_regis = $("#nomor_induk_regis").val();
     var  email = $("#email").val();
+    var  nama = $("#nama").val();
+    var  alamat = $("#alamat").val();
+    var  telp = $("#telp").val();
+    var  jenkel = $("#jenkel").val();
     var  password_regis = $("#password_regis").val();
     var  confirm_password_regis = $("#confirm_password_regis").val();
-    var  role = $("#role").val();
-
-    console.log(password);
-    // console.log(confirm_password);
-      
+    var  roles = $("#roles").val();
+  
     if(password_regis != confirm_password_regis){
-        alert('password lu ga sama oncom!');
+        Toast.fire({
+                icon: 'error',
+                title: 'Password anda tidak sesuai!'
+                });
+        
     }else{
         $.ajax({
         url:"<?php echo base_url('front/register'); ?>",
         type:"POST",
-        data:{nomor_induk_regis:nomor_induk_regis,email:email,password_regis:password_regis,confirm_password_regis:confirm_password_regis,role:role},
-        success:function(result){
-            console.log(result);
+        data:{nomor_induk_regis:nomor_induk_regis,email:email,nama:nama,alamat:alamat,telp:telp,jenkel:jenkel,password_regis:password_regis,confirm_password_regis:confirm_password_regis,roles:roles},
+        success:function(result){ 
+            clear_form();
+            $("#myModal").modal('hide');
+            Toast.fire({
+            icon: 'success',
+            title: 'Registrasi Sukses!'
+            });
         }
         });
     }
     
 });
- 
+
+
+$("#forgot-submit").on("click",function(){
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 800,
+            timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+        });  
+
+    var  email_forget = $("#email_forget").val(); 
+    var  password_forget = $("#password_forget").val();
+    var  confirm_password_forget = $("#confirm_password_forget").val();
+    var  roles_forget = $("#roles_forget").val();
+  
+    if(password_forget != confirm_password_forget){
+        Toast.fire({
+                icon: 'error',
+                title: 'Password anda tidak sesuai!'
+                });
+        
+    }else{
+        $.ajax({
+        url:"<?php echo base_url('front/forget_pass'); ?>",
+        type:"POST",
+        data:{email_forget:email_forget,password_forget:password_forget,roles_forget:roles_forget},
+        success:function(result){ 
+            clear_form();
+            $("#myModal").modal('hide');
+            Toast.fire({
+            icon: 'success',
+            title: 'Berhasil Reset Password!'
+            });
+        }
+        });
+    }
+    
+});
+
 $("#ilmiah-submit").on("click",function(){
     const file_ilmiah = $('#file_ilmiah').prop('files')[0]; 
     var filetype = file_ilmiah.type;
@@ -786,6 +874,7 @@ $("#ilmiah-submit").on("click",function(){
         processData: false,
         contentType: false,
         success: function(result){   
+                clear_form();
                 Toast.fire({
                 icon: 'success',
                 title: 'Upload Berhasil, Menunggu Proses Approval Redaksi!'
@@ -846,6 +935,7 @@ $("#skripsi-submit").on("click",function(){
         processData: false,
         contentType: false,
         success: function(result){   
+                clear_form();
                 Toast.fire({
                 icon: 'success',
                 title: 'Upload Berhasil, Menunggu Proses Approval Redaksi!'
@@ -907,6 +997,7 @@ $("#jurnal-submit").on("click",function(){
         processData: false,
         contentType: false,
         success: function(result){   
+                clear_form();
                 Toast.fire({
                 icon: 'success',
                 title: 'Upload Berhasil, Menunggu Proses Approval Redaksi!'

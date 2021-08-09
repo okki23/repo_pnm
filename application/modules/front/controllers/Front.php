@@ -226,9 +226,9 @@ class Front extends Parent_Controller {
 		$jenkel = $this->input->post('jenkel');
 		$telp = $this->input->post('telp');
 		$alamat = $this->input->post('alamat');
-		$role = $this->input->post('role');
+		$roles = $this->input->post('roles');
 
-		if($role == '1'){
+		if($roles == '1'){
 			$post_dosen = array('nidn'=>$nomor_induk,
 							    'nama'=>$nama,
 								'jenkel'=>$jenkel,
@@ -251,29 +251,92 @@ class Front extends Parent_Controller {
 		$mail = new PHPMailer(true);
 
 		try { 
-			$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-			$mail->isSMTP();                                            //Send using SMTP
+			$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
+			$mail->isSMTP();                                         
 			$mail->Host 	  = 'mail.weskonangan.com';
-			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+			$mail->SMTPAuth   = true;                                   
 			$mail->Username   = 'okki@weskonangan.com';
 			$mail->Password   = 'kecepatan93';
 			$mail->SMTPSecure = "ssl";
 			$mail->Port       = 465;                              
 			
 			$mail->setFrom('repository@pnm.sch.id', 'Info Repository');
-			$mail->addAddress($email, 'User Repository');     //Add a recipient
+			$mail->addAddress($email, 'User Repository');     
 			$mail->addReplyTo('repository@pnm.sch.id', 'Info Repository');
 			
-			$mail->isHTML(true);                                  //Set email format to HTML
+			$mail->isHTML(true);                                 
 			$mail->Subject = 'Informasi Akun Repository';
 			$mail->Body    = 'Halo ini akun anda dan telah aktif <br> <b> Username / Nomor Induk : '.$nomor_induk. ' </b> <br> <b> Password : '.$password.' </b> <br> Terima kasih';
 			$mail->AltBody = 'Halo ini akun anda dan telah aktif <br> <b> Username / Nomor Induk : '.$nomor_induk. ' </b> <br> <b> Password : '.$password.' </b> <br> Terima kasih';
 
-			$mail->send();
-			// echo 'Message has been sent';
+			$mail->send(); 
 		} catch (Exception $e) {
 			echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 		}
+	}
+
+	public function forget_pass(){
+		var_dump($this->input->post());
+		$email_forget = $this->input->post('email_forget'); 
+		$password_forget = $this->input->post('password_forget'); 
+		$roles_forget = $this->input->post('roles_forget'); 
+		$mail = new PHPMailer(true);
+		if($roles_forget == '1'){ 
+			$sql = $this->db->query("update dosen set password = '".md5($password_forget)."' where email = '".$email_forget."' ");
+				try { 
+				$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
+				$mail->isSMTP();                                         
+				$mail->Host 	  = 'mail.weskonangan.com';
+				$mail->SMTPAuth   = true;                                   
+				$mail->Username   = 'okki@weskonangan.com';
+				$mail->Password   = 'kecepatan93';
+				$mail->SMTPSecure = "ssl";
+				$mail->Port       = 465;                              
+				
+				$mail->setFrom('repository@pnm.sch.id', 'Info Repository - Reset Password');
+				$mail->addAddress($email_forget, 'User Repository');     
+				$mail->addReplyTo('repository@pnm.sch.id', 'Info Repository  - Reset Passwords');
+				
+				$mail->isHTML(true);                                 
+				$mail->Subject = 'Informasi Reset Password';
+				$mail->Body    = 'Halo, akun kamu sudah di reset dan berikut ini password baru kamu : <br>
+								  <b> Password Baru : '.$password_forget.' </b> <br> Terima kasih';
+				$mail->AltBody = 'Halo, akun kamu sudah di reset dan berikut ini password baru kamu : <br>
+								  <b> Password Baru : '.$password_forget.' </b> <br> Terima kasih';
+
+				$mail->send(); 
+			} catch (Exception $e) {
+				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			}
+		}else{
+			$sql = $this->db->query("update mahasiswa set password = '".md5($password_forget)."' where email = '".$email_forget."' ");
+				try { 
+				$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
+				$mail->isSMTP();                                         
+				$mail->Host 	  = 'mail.weskonangan.com';
+				$mail->SMTPAuth   = true;                                   
+				$mail->Username   = 'okki@weskonangan.com';
+				$mail->Password   = 'kecepatan93';
+				$mail->SMTPSecure = "ssl";
+				$mail->Port       = 465;                              
+				
+				$mail->setFrom('repository@pnm.sch.id', 'Info Repository - Reset Password');
+				$mail->addAddress($email_forget, 'User Repository');     
+				$mail->addReplyTo('repository@pnm.sch.id', 'Info Repository  - Reset Passwords');
+				
+				$mail->isHTML(true);                                 
+				$mail->Subject = 'Informasi Reset Password';
+				$mail->Body    = 'Halo, akun kamu sudah di reset dan berikut ini password baru kamu : <br>
+								  <b> Password Baru : '.$email_forget.' </b> <br> Terima kasih';
+				$mail->AltBody = 'Halo, akun kamu sudah di reset dan berikut ini password baru kamu : <br>
+								  <b> Password Baru : '.$email_forget.' </b> <br> Terima kasih';
+
+				$mail->send(); 
+			} catch (Exception $e) {
+				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			}
+		}
+ 		 
 	}
 }
  
