@@ -17,9 +17,15 @@ class Front extends Parent_Controller {
 		$data_beranda = $this->db->get('page_beranda')->row();
 		$data_alamat = $this->db->get('page_alamat')->row();
 		$data_fitur= $this->db->get('page_fitur')->result();
+		$data_header= $this->db->get('page_header')->row();
+		$data_footer= $this->db->get('page_footer')->row();
+		$data_logo= $this->db->get('page_logo')->row();
 		$data['parse_beranda'] = $data_beranda; 
 		$data['page_alamat'] = $data_alamat;
-		$data['page_fitur'] = $data_fitur;   
+		$data['page_fitur'] = $data_fitur;  
+		$data['page_header'] = $data_header;
+		$data['page_footer'] = $data_footer;
+		$data['page_logo'] = $data_logo;   
 		$this->load->view('front_view',$data);
 	}
 
@@ -341,6 +347,51 @@ class Front extends Parent_Controller {
 				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 			}
 		}
+ 		 
+	}
+
+	public function kontak(){  
+
+		$name_kontak = $this->input->post('name_kontak'); 
+		$email_kontak = $this->input->post('email_kontak'); 
+		$subject_kontak = $this->input->post('subject_kontak'); 
+		$message_kontak = $this->input->post('message_kontak'); 
+
+		$mail = new PHPMailer(true); 
+		$this->db->query("insert into kontak set nama = '".$name_kontak."', email= '".$email_kontak."', subjek= '".$subject_kontak."', pesan= '".$message_kontak."' ");
+	 
+				try { 
+				$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
+				$mail->isSMTP();                                         
+				$mail->Host 	  = 'smtp.gmail.com';
+				$mail->SMTPAuth   = true;                                   
+				$mail->Username   = 'okkisetyawan@gmail.com';
+				$mail->Password   = 'DoaTerbaik2019_OKE!@';
+				$mail->SMTPSecure = "ssl";
+				$mail->Port       = 465;                              
+				
+				$mail->setFrom('repository@pnm.sch.id', 'Info Repository - Reset Password');
+				$mail->addAddress('okkisetyawan@gmail.com', 'User Repository');     
+				$mail->addReplyTo('repository@pnm.sch.id', 'Info Repository  - Reset Passwords');
+				
+				$mail->isHTML(true);                                 
+				$mail->Subject = 'Kontak Website Repository';
+				$mail->Body    = 'Ada pesan masuk dari website repository : <br>
+								  <b> Nama : '.$name_kontak.' </b> <br> 
+								  <b> Email : '.$email_kontak.' </b> <br> 
+								  <b> Subjek : '.$subject_kontak.' </b> <br> 
+								  <b> Pesan : '.$message_kontak.' </b> <br> ';
+				$mail->AltBody = 'Ada pesan masuk dari website repository : <br>
+									<b> Nama : '.$name_kontak.' </b> <br> 
+									<b> Email : '.$email_kontak.' </b> <br> 
+									<b> Subjek : '.$subject_kontak.' </b> <br> 
+									<b> Pesan : '.$message_kontak.' </b> <br> ';
+
+				$mail->send(); 
+			} catch (Exception $e) {
+				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			}
+		 
  		 
 	}
 }

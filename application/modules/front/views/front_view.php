@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="webthemez">
-    <title>Repository Politeknik Negeri Manado</title>
-    <link rel="shortcut icon" href="<?php echo base_url('assets/images/');?>logopnm.png"> 
+    <title><?php echo $page_header->header; ?> </title>
+    <link rel="shortcut icon" href="<?php echo base_url('assets/images/'.$page_logo->logo);?>"> 
 	 
     <link href="<?php echo base_url('assets/frontend/');?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url('assets/frontend/');?>css/font-awesome.min.css" rel="stylesheet"> 
@@ -36,7 +36,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo base_url(); ?>"><img src="<?php echo base_url('assets/images/');?>logopnm.png" style="width:10%;" alt="logo"></a>
+                    <a class="navbar-brand" href="<?php echo base_url(); ?>"><img src="<?php echo base_url('assets/images/'.$page_logo->logo);?>" style="width:10%;" alt="logo"></a>
                 </div>
 				
                 <div class="collapse navbar-collapse navbar-right">
@@ -364,48 +364,27 @@
                 <h2 class="section-title wow fadeInDown">Fitur Sistem Repository</h2>
                 <p class="wow fadeInDown">Silahkan nikmati fitur berikut ini untuk melakukan upload download penelitian</p>
             </div>
-
-            <?php 
-            var_dump($page_fitur);
-            ?>
+          
             <div class="row">
                 <div class="features">
+                <?php 
+                    foreach($page_fitur as $pf){
+                ?>
                     <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms">
                         <div class="media service-box">
                             <div class="pull-left">
                                 <i class="fa fa-futbol-o"></i>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">Panduan</h4>
-                                <p>Silahkan anda baca panduan terlebih dahulu tentang penggunaan sistem repository ini.</p>
+                                <h4 class="media-heading"><?php echo $pf->title; ?></h4>
+                                <p><?php echo $pf->desc; ?></p>
                             </div>
                         </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
-                        <div class="media service-box">
-                            <div class="pull-left">
-                                <i class="fa fa-futbol-o"></i>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading"> Sign In dan Register</h4>
-                                <p>Anda dapat melakukan login dan daftar akun agar dapat berkontribusi di sistem repository ini.</p>
-                            </div>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="200ms">
-                        <div class="media service-box">
-                            <div class="pull-left">
-                                <i class="fa fa-futbol-o"></i>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Multi Dokumen</h4>
-                                <p>Anda dapat mencari dokumentasi jurnal, karya ilmiah dan skripsi yang sudah lulus uji.</p>
-                            </div>
-                        </div>
-                    </div><!--/.col-md-4-->
-                 
+                    </div> 
+                <?php 
+                    }
+                ?>
+                     
                 </div>
             </div><!--/.row-->    
         </div><!--/.container-->
@@ -457,21 +436,20 @@
 					</div></div>
                     <div class="col-sm-8 col-md-8">
                         <div class="contact-form">
-                       
-                            <form id="main-contact-form" name="contact-form" method="post" action="#">
+                            <form id="contact-form" method="post" role="form">
                                 <div class="form-group">
-                                    <input type="text" name="name" class="form-control" placeholder="Nama" required>
+                                    <input type="text" name="name_kontak" id="name_kontak" class="form-control" placeholder="Nama">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                    <input type="text" name="email_kontak" id="email_kontak" class="form-control" placeholder="Email">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="subject" class="form-control" placeholder="Subjek" required>
+                                    <input type="text" name="subject_kontak" id="subject_kontak" class="form-control" placeholder="Subjek" required>
                                 </div>
                                 <div class="form-group">
-                                    <textarea name="message" class="form-control" rows="8" placeholder="Pesan" required></textarea>
+                                    <textarea name="message_kontak" id="message_kontak" class="form-control" rows="8" placeholder="Pesan" required></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+                                <button id="contact-submit" name="register-submit" type="button" class="form-control btn btn-login"> Kirim Pesan </button>
                             </form>
                         </div>
                     </div>
@@ -484,7 +462,7 @@
         <div class="container">
             <div class="row" >
                 <div class="col-sm-12" style="text-align:center;">
-                    &copy; 2021 Repository Politeknik Negeri Manado   
+                <?php echo $page_footer->footer; ?>
                 </div>
                
             </div>
@@ -790,6 +768,40 @@ $("#register-submit").on("click",function(){
         }
         });
     }
+    
+});
+
+$("#contact-submit").on("click",function(){
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 800,
+            timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+        }); 
+
+    var  name_kontak = $("#name_kontak").val();
+    var  email_kontak = $("#email_kontak").val();
+    var  subject_kontak = $("#subject_kontak").val();
+    var  message_kontak = $("#message_kontak").val();
+     
+        $.ajax({
+        url:"<?php echo base_url('front/kontak'); ?>",
+        type:"POST",
+        data:{name_kontak:name_kontak,email_kontak:email_kontak,subject_kontak:subject_kontak,message_kontak:message_kontak},
+        success:function(result){ 
+            clear_form(); 
+            Toast.fire({
+            icon: 'success',
+            title: 'Berjasil Kirim Pesan!'
+            });
+        }
+        });
+   
     
 });
 

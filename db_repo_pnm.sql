@@ -11,7 +11,7 @@
  Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 05/08/2021 20:38:18
+ Date: 10/08/2021 00:18:28
 */
 
 SET NAMES utf8mb4;
@@ -31,12 +31,15 @@ CREATE TABLE `dosen`  (
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of dosen
 -- ----------------------------
-INSERT INTO `dosen` VALUES (1, '1101110009', 'Okki Setyawan', 'L', '0219345435', 'Bekasi', 'okkisetyawan@gmail.com', '0cc175b9c0f1b6a831c399e269772661');
+INSERT INTO `dosen` VALUES (1, '1101110009', 'Okki Setyawan', 'L', '0219345435', 'Bekasi', 'okkisetyawan@gmail.com', '7815696ecbf1c96e6894b779456d330e');
+INSERT INTO `dosen` VALUES (2, '202', 'Okki Setyawan', 'L', '087889677228', 'Bekasi', 'okkisetyawan@gmail.com', '7815696ecbf1c96e6894b779456d330e');
+INSERT INTO `dosen` VALUES (3, '203', 'Okki Setyawan', 'L', '087889677228', 'Bekasi', 'okkisetyawan@gmail.com', '7815696ecbf1c96e6894b779456d330e');
+INSERT INTO `dosen` VALUES (5, '8080', 'Joni', 'L', '021899384534', 'okkisetyawan@gmail.com', 'okkisetyawan@gmail.com', '7815696ecbf1c96e6894b779456d330e');
 
 -- ----------------------------
 -- Table structure for jenis_publikasi
@@ -56,6 +59,25 @@ INSERT INTO `jenis_publikasi` VALUES (2, 'Karya Ilmiah');
 INSERT INTO `jenis_publikasi` VALUES (3, 'Skripsi');
 
 -- ----------------------------
+-- Table structure for kontak
+-- ----------------------------
+DROP TABLE IF EXISTS `kontak`;
+CREATE TABLE `kontak`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `subjek` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `pesan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of kontak
+-- ----------------------------
+INSERT INTO `kontak` VALUES (1, 'Okki Setyawan', 'okkisetyawan@gmail.com', 'OKKKOKO', 'kmdlasmdad');
+INSERT INTO `kontak` VALUES (2, 'Okki Setyawan', 'okkisetyawan@gmail.com', 'makan', 'udah');
+
+-- ----------------------------
 -- Table structure for m_user
 -- ----------------------------
 DROP TABLE IF EXISTS `m_user`;
@@ -63,17 +85,13 @@ CREATE TABLE `m_user`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `id_pegawai` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `level` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of m_user
 -- ----------------------------
-INSERT INTO `m_user` VALUES (1, 'admin', 'YQ==', '1', 1);
-INSERT INTO `m_user` VALUES (7, 'okki', 'YQ==', '2', 1);
-INSERT INTO `m_user` VALUES (8, 'muryan', 'YQ==', '3', 2);
+INSERT INTO `m_user` VALUES (1, 'admin', '0cc175b9c0f1b6a831c399e269772661');
 
 -- ----------------------------
 -- Table structure for mahasiswa
@@ -89,12 +107,108 @@ CREATE TABLE `mahasiswa`  (
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mahasiswa
 -- ----------------------------
-INSERT INTO `mahasiswa` VALUES (1, '14002429', 'Okki Setyawan', 'L', '0218945943', 'Bekasi', 'okkisetyawan@gmail.com', '0cc175b9c0f1b6a831c399e269772661');
+INSERT INTO `mahasiswa` VALUES (1, '14002429', 'Okki Setyawan', 'L', '0218945943', 'Bekasi', 'okkisetyawan@gmail.com', '03c7c0ace395d80182db07ae2c30f034');
+INSERT INTO `mahasiswa` VALUES (7, '2983466', 'Okki S S.Kom', 'P', '0217843566666', 'Bekasi Barat', 'admin@admin.comgg', '0cc175b9c0f1b6a831c399e269772661');
+
+-- ----------------------------
+-- Table structure for page_alamat
+-- ----------------------------
+DROP TABLE IF EXISTS `page_alamat`;
+CREATE TABLE `page_alamat`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of page_alamat
+-- ----------------------------
+INSERT INTO `page_alamat` VALUES (1, 'Kampus Politeknik Negeri Manado', 'Jl. Raya Politeknik Kel. Buha Manado, Kecamatan Mapanget, Sulawesi Utara <br>\r\n                              Indonesia');
+
+-- ----------------------------
+-- Table structure for page_beranda
+-- ----------------------------
+DROP TABLE IF EXISTS `page_beranda`;
+CREATE TABLE `page_beranda`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of page_beranda
+-- ----------------------------
+INSERT INTO `page_beranda` VALUES (1, 'Lorem Ipsum', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.');
+
+-- ----------------------------
+-- Table structure for page_fitur
+-- ----------------------------
+DROP TABLE IF EXISTS `page_fitur`;
+CREATE TABLE `page_fitur`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of page_fitur
+-- ----------------------------
+INSERT INTO `page_fitur` VALUES (1, 'Panduan', 'Silahkan anda baca panduan terlebih dahulu tentang penggunaan sistem repository ini.');
+INSERT INTO `page_fitur` VALUES (2, 'Sign In dan Register', 'Anda dapat melakukan login dan daftar akun agar dapat berkontribusi di sistem repository ini.');
+INSERT INTO `page_fitur` VALUES (3, 'Multi Dokumen', 'Anda dapat mencari dokumentasi jurnal, karya ilmiah dan skripsi yang sudah lulus uji.');
+
+-- ----------------------------
+-- Table structure for page_footer
+-- ----------------------------
+DROP TABLE IF EXISTS `page_footer`;
+CREATE TABLE `page_footer`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `footer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of page_footer
+-- ----------------------------
+INSERT INTO `page_footer` VALUES (1, '© 2021 Repository Politeknik Negeri Manado');
+
+-- ----------------------------
+-- Table structure for page_header
+-- ----------------------------
+DROP TABLE IF EXISTS `page_header`;
+CREATE TABLE `page_header`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `header` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of page_header
+-- ----------------------------
+INSERT INTO `page_header` VALUES (1, 'Repository Politeknik Negeri Manado');
+
+-- ----------------------------
+-- Table structure for page_logo
+-- ----------------------------
+DROP TABLE IF EXISTS `page_logo`;
+CREATE TABLE `page_logo`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `logo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of page_logo
+-- ----------------------------
+INSERT INTO `page_logo` VALUES (1, 'logopnm.png');
 
 -- ----------------------------
 -- Table structure for t_repository
@@ -117,23 +231,18 @@ CREATE TABLE `t_repository`  (
   `tanggal_terbit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `volume` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `penerbit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `tanggal_setor` date NULL DEFAULT NULL,
   `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `nomor_induk_approval` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `is_approve` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'N',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_repository
 -- ----------------------------
-INSERT INTO `t_repository` VALUES (1, '1', 'Pembangunan Sistem Informasi WEB GIS', '1101110009', 'Okki Setyawan', NULL, NULL, NULL, NULL, '2021', '93242', '8934573', NULL, NULL, '2', 'HGCI', '1101110009-Okki Setyawan-Pembangunan Sistem Informasi WEB GIS.pdf', NULL);
-INSERT INTO `t_repository` VALUES (2, '2', 'ttgtg', '1101110009', 'undefined', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1101110009-undefined-ttgtg.', NULL);
-INSERT INTO `t_repository` VALUES (3, '2', 'sfwe', '1101110009', 'fggf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1101110009-fggf-sfwe.', NULL);
-INSERT INTO `t_repository` VALUES (4, '2', 'Makan nasi', '1101110009', 'okki', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1101110009-okki-Makan nasi.', NULL);
-INSERT INTO `t_repository` VALUES (5, '2', 'TERTE', '1101110009', 'trtr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1101110009-trtr-TERTE.pdf', NULL);
-INSERT INTO `t_repository` VALUES (6, '2', 'asda', '1101110009', 'fsfs', NULL, NULL, NULL, '2020-09-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1101110009-fsfs-asda.pdf', NULL);
-INSERT INTO `t_repository` VALUES (7, '2', 'ad', '1101110009', 'er', NULL, NULL, NULL, '2022-01-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1101110009-er-ad.pdf', NULL);
-INSERT INTO `t_repository` VALUES (8, '3', NULL, '1101110009', 'dgd', 'et', 'fg', '2020-02-02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1101110009-dgd-sdfs.', NULL);
-INSERT INTO `t_repository` VALUES (9, '3', NULL, '1101110009', 'rgd', 'dfg', 'dgd', '2020-02-02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1101110009-rgd-erw3.pdf', NULL);
-INSERT INTO `t_repository` VALUES (10, '3', 'ger', '1101110009', 'wer', 'ytuyt', 'er', '2020-02-02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1101110009-wer-ger.pdf', NULL);
+INSERT INTO `t_repository` VALUES (1, '3', 'Membangun sistem informasi', '1101110009', 'Okki Setyawan', 'Doni Keren', 'Rini S Bonbon', '2020-02-02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-06', '1101110009-Okki Setyawan-Membangun sistem informasi.pdf', 'Y');
+INSERT INTO `t_repository` VALUES (2, '3', 'Dampak Lingkungan Buruk Terhadap SUTET', '14002429', 'Giant & Suneo', 'Doraemon', 'Nobita', 'Sizuka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-06', '14002429-Giant & Suneo-Dampak Lingkungan Buruk Terhadap SUTET.pdf', 'Y');
+INSERT INTO `t_repository` VALUES (3, '1', 'Perbandingan Algoritma', '14002429', 'Okki Setyawan', NULL, NULL, NULL, NULL, '2001', '002542', '935443', NULL, NULL, '2', 'Ganesha', '2021-08-07', '14002429-Okki Setyawan-Perbandingan Algoritma.pdf', 'N');
+INSERT INTO `t_repository` VALUES (4, '3', 'Makanan Siap Saji', '1101110009', 'Okki Setyawan', 'Dono', 'Kasino', '2020-02-02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-09', '1101110009-Okki Setyawan-Makanan Siap Saji.pdf', 'Y');
 
 SET FOREIGN_KEY_CHECKS = 1;
