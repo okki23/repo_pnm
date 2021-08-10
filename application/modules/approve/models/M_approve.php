@@ -13,27 +13,30 @@ class M_approve extends Parent_Model {
   }
   
   public function fetch_approve(){
-       $sql = "select a.*,b.nama_kategori,c.nama_sub_kategori from m_approve a
-       left join m_kategori b on b.id = a.id_kategori
-       left join m_sub_kategori c on c.id = a.id_sub_kategori";
+       $sql = "select a.*,b.jenis_publikasi,case when(a.is_approve='Y') then 'Sudah' else 'Belum' end as status  from t_repository a
+       left join jenis_publikasi b on b.id = a.id_jenis_publikasi";
                
 		   $getdata = $this->db->query($sql)->result();
 		   $data = array();  
 		   $no = 1;
            foreach($getdata as $row)  
            {  
+                
                 $sub_array = array();  
  
-                $sub_array[] = $row->nama_kategori;  
-                $sub_array[] = $row->nama_sub_kategori;  
-                $sub_array[] = $row->nama_approve; 
-                $sub_array[] = '<a href="javascript:void(0)" class="btn btn-default btn-xs waves-effect" id="edit" onclick="Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>  &nbsp; 
-                <a href="javascript:void(0)" class="btn btn-warning btn-xs waves-effect" id="edit" onclick="Ubah_Data('.$row->id.');" > <i class="material-icons">create</i> Ubah </a>  &nbsp; 
-                <a href="javascript:void(0)" id="delete" class="btn btn-danger btn-xs waves-effect" onclick="Hapus_Data('.$row->id.');" > <i class="material-icons">delete</i> Hapus </a>  &nbsp;';  
-                $sub_array[] = $row->id;
-                $sub_array[] = $row->qty_jkt;
-                $sub_array[] = $row->qty_subang;
-               
+                $sub_array[] = $no;  
+                $sub_array[] = $row->jenis_publikasi;  
+                if($row->id_jenis_publikasi == 1){
+                    $sub_array[] = '<a href="'.base_url('publikasi/jurnal/').$row->file.'" target="_blank"> '.$row->judul.'  <i class="material-icons">open_in_new</i> </a>'; 
+                }else if($row->id_jenis_publikasi == 2){
+                    $sub_array[] = '<a href="'.base_url('publikasi/karya_ilmiah/').$row->file.'" target="_blank"> '.$row->judul.'  <i class="material-icons">open_in_new</i> </a>'; 
+                }else{
+                    $sub_array[] = '<a href="'.base_url('publikasi/skripsi/').$row->file.'" target="_blank"> '.$row->judul.'  <i class="material-icons">open_in_new</i> </a>'; 
+                }
+          
+                $sub_array[] = $row->status; 
+                $sub_array[] = '<a href="javascript:void(0)" class="btn btn-default btn-xs waves-effect" id="edit" onclick="Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>  &nbsp;';  
+             
                 $data[] = $sub_array;  
                 $no++;
            }  
@@ -41,35 +44,5 @@ class M_approve extends Parent_Model {
 		   return $output = array("data"=>$data);
 		    
     }
- 
-    public function fetch_approve_front(){
-     $sql = "select a.*,b.nama_kategori,c.nama_sub_kategori from m_approve a
-     left join m_kategori b on b.id = a.id_kategori
-     left join m_sub_kategori c on c.id = a.id_sub_kategori order by a.id asc";
-             
-           $getdata = $this->db->query($sql)->result();
-           $data = array();  
-           $no = 1;
-         foreach($getdata as $row)  
-         {  
-              $sub_array = array();  
-
-              $sub_array[] = $row->nama_kategori;  
-              $sub_array[] = $row->nama_sub_kategori;  
-              $sub_array[] = $row->nama_approve;  
-              $sub_array[] = $row->qty_jkt;
-              $sub_array[] = $row->qty_subang;
-             
-              $data[] = $sub_array;  
-              $no++;
-         }  
-        
-           return $output = array("data"=>$data);
-    }
   
-
-
-   
-	 
- 
 }

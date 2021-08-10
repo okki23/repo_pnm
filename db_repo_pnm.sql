@@ -11,7 +11,7 @@
  Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 10/08/2021 00:18:28
+ Date: 10/08/2021 11:51:05
 */
 
 SET NAMES utf8mb4;
@@ -145,7 +145,7 @@ CREATE TABLE `page_beranda`  (
 -- ----------------------------
 -- Records of page_beranda
 -- ----------------------------
-INSERT INTO `page_beranda` VALUES (1, 'Lorem Ipsum', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.');
+INSERT INTO `page_beranda` VALUES (1, 'Politeknik Negeri Manado', 'Sejarah Singkat Politeknik Negeri Manado Berawal di tahun 1986, ketika pemerintah membangun kampus dan fasilitas pembelajaran di Buha, sekitar 10 kilometer dari pusat Kota Manado. Pada saat yang sama diadakan pelatihan bagi tenaga instruktur dan dipusatkan di Bandung Jawa Barat pada Pusat Pengembangan Politeknik. Pada tahun 1987, kegiatan belajar mengajar dimulai di kampus yang baru. Pada tanggal 19 Juli 1988 secara resmi berdirilah Politeknik Universitas Sam Ratulangi Manado yang pada saat itu masih terdiri dari 4 jurusan seperti Teknik Sipil, Teknik Elektro, Teknik Mesin, dan tata niaga yang mengelolah program pendidikan dua tahun yang disebut diploma 2. Pada tanggal 18 Januari 1999, berdasarkan kebijakan Direktorat Jenderal Pendidikan Tinggi, Politeknik Universitas Sam Ratulangi Manado resmi menjadi Politeknik Negeri yang terpisah dari Universitas Sam Ratulangi Manado. ');
 
 -- ----------------------------
 -- Table structure for page_fitur
@@ -241,7 +241,7 @@ CREATE TABLE `t_repository`  (
 -- Records of t_repository
 -- ----------------------------
 INSERT INTO `t_repository` VALUES (1, '3', 'Membangun sistem informasi', '1101110009', 'Okki Setyawan', 'Doni Keren', 'Rini S Bonbon', '2020-02-02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-06', '1101110009-Okki Setyawan-Membangun sistem informasi.pdf', 'Y');
-INSERT INTO `t_repository` VALUES (2, '3', 'Dampak Lingkungan Buruk Terhadap SUTET', '14002429', 'Giant & Suneo', 'Doraemon', 'Nobita', 'Sizuka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-06', '14002429-Giant & Suneo-Dampak Lingkungan Buruk Terhadap SUTET.pdf', 'Y');
+INSERT INTO `t_repository` VALUES (2, '3', 'Dampak Lingkungan Buruk Terhadap SUTET', '14002429', 'Giant & Suneo', 'Doraemon', 'Nobita', 'Sizuka', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-06', '14002429-Giant & Suneo-Dampak Lingkungan Buruk Terhadap SUTET.pdf', 'N');
 INSERT INTO `t_repository` VALUES (3, '1', 'Perbandingan Algoritma', '14002429', 'Okki Setyawan', NULL, NULL, NULL, NULL, '2001', '002542', '935443', NULL, NULL, '2', 'Ganesha', '2021-08-07', '14002429-Okki Setyawan-Perbandingan Algoritma.pdf', 'N');
 INSERT INTO `t_repository` VALUES (4, '3', 'Makanan Siap Saji', '1101110009', 'Okki Setyawan', 'Dono', 'Kasino', '2020-02-02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-09', '1101110009-Okki Setyawan-Makanan Siap Saji.pdf', 'Y');
 
